@@ -111,6 +111,19 @@ export async function deletePost(id: string) {
   if (error) throw error;
 }
 
+export async function uploadPostCover(file: File): Promise<string> {
+  const ext = file.name.split(".").pop() || "jpg";
+  const path = `covers/${Date.now()}-${Math.random().toString(36).slice(2, 8)}.${ext}`;
+  const { error: upErr } = await supabase.storage.from("gallery").upload(path, file, {
+    cacheControl: "3600",
+    upsert: false,
+  });
+  if (upErr) throw upErr;
+  const { data: pub } = supabase.storage.from("gallery").getPublicUrl(path);
+  return pub.publicUrl;
+}
+
+
 // ---------- Photos ----------
 export async function listPhotos(): Promise<AdminPhoto[]> {
   const { data, error } = await supabase

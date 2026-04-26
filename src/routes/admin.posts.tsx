@@ -5,6 +5,7 @@ import {
   deletePost,
   listPosts,
   updatePost,
+  uploadPostCover,
   type AdminPost,
 } from "@/lib/admin-store";
 import { Pencil, Plus, Search, Trash2, X } from "lucide-react";
@@ -32,6 +33,7 @@ function AdminPosts() {
   const [editing, setEditing] = useState<AdminPost | null>(null);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
+  const [uploadingCover, setUploadingCover] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   const refresh = async () => {
@@ -266,14 +268,37 @@ function AdminPosts() {
                   className="w-full border border-border bg-background px-4 py-3 text-sm outline-none focus:border-primary"
                 />
               </Field>
-              <Field label="Cover Image URL">
-                <input
-                  type="url"
-                  placeholder="https://..."
-                  value={editing.cover || ""}
-                  onChange={(e) => setEditing({ ...editing, cover: e.target.value })}
-                  className="w-full border border-border bg-background px-4 py-3 text-sm outline-none focus:border-primary"
-                />
+              <Field label="Cover Image">
+                <div className="flex flex-col gap-3">
+                  {editing.cover && (
+                    <img
+                      src={editing.cover}
+                      alt="Cover preview"
+                      className="h-32 w-full object-cover border border-border"
+                    />
+                  )}
+                  <input
+                    type="file"
+                    accept="image/*"
+                    disabled={uploadingCover}
+                    onChange={async (e) => {
+                      const file = e.target.files?.[0];
+                      if (!file) return;
+                      setUploadingCover(true);
+                      setError(null);
+                      try {
+                        const url = await uploadPostCover(file);
+                        setEditing({ ...editing, cover: url });
+                      } catch (err) {
+                        setError(err instanceof Error ? err.message : "Failed to upload cover");
+                      } finally {
+                        setUploadingCover(false);
+                      }
+                    }}
+                    className="w-full border border-border bg-background px-4 py-3 text-sm outline-none focus:border-primary file:mr-4 file:py-1 file:px-3 file:border-0 file:text-[0.65rem] file:font-semibold file:uppercase file:tracking-[0.16em] file:bg-foreground file:text-background hover:file:bg-primary file:cursor-pointer disabled:opacity-50"
+                  />
+                  {uploadingCover && <p className="text-xs text-muted-foreground">Uploading…</p>}
+                </div>
               </Field>
               <Field label="Body">
                 <textarea

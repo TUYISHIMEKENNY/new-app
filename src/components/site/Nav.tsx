@@ -22,7 +22,7 @@ export function Nav() {
           <img
             src={logo}
             alt="ILAE Youth Nurse Rwanda logo"
-            className="h-10 w-10 rounded-full object-cover"
+            className="h-14 w-14 rounded-full object-cover"
           />
           <span className="text-lg font-bold tracking-tight">
             ILAE YOUTH NURSE RWANDA
