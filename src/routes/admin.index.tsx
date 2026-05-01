@@ -4,11 +4,12 @@ import {
   listMessages,
   listPhotos,
   listPosts,
+  listPages,
   type AdminMessage,
   type AdminPhoto,
   type AdminPost,
 } from "@/lib/admin-store";
-import { FileText, Image as ImageIcon, Mail, TrendingUp } from "lucide-react";
+import { FileText, File, Image as ImageIcon, Mail, TrendingUp } from "lucide-react";
 
 export const Route = createFileRoute("/admin/")({
   component: AdminHome,
@@ -16,6 +17,7 @@ export const Route = createFileRoute("/admin/")({
 
 function AdminHome() {
   const [posts, setPosts] = useState<AdminPost[]>([]);
+  const [pages, setPages] = useState<AdminPost[]>([]);
   const [photos, setPhotos] = useState<AdminPhoto[]>([]);
   const [messages, setMessages] = useState<AdminMessage[]>([]);
   const [loading, setLoading] = useState(true);
@@ -24,9 +26,10 @@ function AdminHome() {
     let active = true;
     (async () => {
       try {
-        const [p, ph, m] = await Promise.all([listPosts(), listPhotos(), listMessages()]);
+        const [p, pg, ph, m] = await Promise.all([listPosts(), listPages(), listPhotos(), listMessages()]);
         if (!active) return;
         setPosts(p);
+        setPages(pg);
         setPhotos(ph);
         setMessages(m);
       } finally {
@@ -39,14 +42,16 @@ function AdminHome() {
   }, []);
 
   const unread = messages.filter((m) => !m.read).length;
-  const published = posts.filter((p) => p.status === "Published").length;
-  const drafts = posts.length - published;
+  const publishedPosts = posts.filter((p) => p.status === "Published").length;
+  const draftsPosts = posts.length - publishedPosts;
+  const publishedPages = pages.filter((p) => p.status === "Published").length;
+  const draftsPages = pages.length - publishedPages;
 
   const stats = [
-    { label: "Total posts", value: posts.length, sub: `${published} published · ${drafts} draft`, icon: FileText },
-    { label: "Total photos", value: photos.length, sub: "In gallery", icon: ImageIcon },
+    { label: "Total posts", value: posts.length, sub: `${publishedPosts} published · ${draftsPosts} draft`, icon: FileText },
+    { label: "Total pages", value: pages.length, sub: `${publishedPages} published · ${draftsPages} draft`, icon: File },
     { label: "Messages", value: messages.length, sub: `${unread} unread`, icon: Mail },
-    { label: "Engagement", value: "+12%", sub: "vs last month", icon: TrendingUp },
+    { label: "Total photos", value: photos.length, sub: "In gallery", icon: ImageIcon },
   ];
 
   const recentPosts = [...posts].slice(0, 4);
@@ -120,6 +125,42 @@ function AdminHome() {
         </section>
 
         <section className="border border-border bg-paper">
+          <header className="flex items-center justify-between border-b border-border px-6 py-4">
+            <h3 className="font-display text-lg">Recent pages</h3>
+            <Link
+              to="/admin/pages"
+              className="text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-primary hover:underline"
+            >
+              Manage →
+            </Link>
+          </header>
+          <ul className="divide-y divide-border">
+            {pages.slice(0, 4).map((p) => (
+              <li key={p.id} className="flex items-start justify-between gap-4 px-6 py-4">
+                <div className="min-w-0">
+                  <p className="truncate font-display text-base text-foreground">{p.title}</p>
+                  <p className="mt-1 text-xs text-muted-foreground truncate">{p.slug}</p>
+                </div>
+                <span
+                  className={`shrink-0 border px-2 py-1 text-[0.65rem] font-semibold uppercase tracking-[0.16em] ${
+                    p.status === "Published"
+                      ? "border-primary text-primary"
+                      : "border-border text-muted-foreground"
+                  }`}
+                >
+                  {p.status}
+                </span>
+              </li>
+            ))}
+            {pages.length === 0 && !loading && (
+              <li className="px-6 py-10 text-center text-sm text-muted-foreground">
+                No pages yet.
+              </li>
+            )}
+          </ul>
+        </section>
+
+        <section className="border border-border bg-paper lg:col-span-2">
           <header className="flex items-center justify-between border-b border-border px-6 py-4">
             <h3 className="font-display text-lg">Latest messages</h3>
             <Link

@@ -5,13 +5,16 @@ import { useAdminAuth } from "@/hooks/use-admin-auth";
 import {
   LayoutDashboard,
   FileText,
+  File,
   Image as ImageIcon,
   Mail,
   LogOut,
   Menu,
   X,
+  Users,
 } from "lucide-react";
 import { useState } from "react";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 export const Route = createFileRoute("/admin")({
   component: AdminLayout,
@@ -21,7 +24,7 @@ export const Route = createFileRoute("/admin")({
 });
 
 type NavItem = {
-  to: "/admin" | "/admin/posts" | "/admin/gallery" | "/admin/messages";
+  to: "/admin" | "/admin/posts" | "/admin/pages" | "/admin/team" | "/admin/gallery" | "/admin/messages";
   label: string;
   icon: typeof LayoutDashboard;
   exact?: boolean;
@@ -30,6 +33,8 @@ type NavItem = {
 const NAV: NavItem[] = [
   { to: "/admin", label: "Dashboard", icon: LayoutDashboard, exact: true },
   { to: "/admin/posts", label: "Posts", icon: FileText },
+  { to: "/admin/pages", label: "Pages", icon: File },
+  { to: "/admin/team", label: "Team", icon: Users },
   { to: "/admin/gallery", label: "Gallery", icon: ImageIcon },
   { to: "/admin/messages", label: "Messages", icon: Mail },
 ];
@@ -130,13 +135,16 @@ function AdminLayout() {
           <p className="mb-2 truncate px-4 text-[0.65rem] uppercase tracking-[0.16em] text-muted-foreground">
             {user.email}
           </p>
-          <button
-            onClick={handleLogout}
-            className="flex w-full items-center gap-3 px-4 py-2.5 text-sm text-muted-foreground transition-colors hover:text-destructive"
-          >
-            <LogOut className="h-4 w-4" />
-            Sign out
-          </button>
+          <div className="flex w-full items-center justify-between px-4 py-2.5">
+            <button
+              onClick={handleLogout}
+              className="flex items-center gap-3 text-sm text-muted-foreground transition-colors hover:text-destructive"
+            >
+              <LogOut className="h-4 w-4" />
+              Sign out
+            </button>
+            <ThemeToggle />
+          </div>
         </div>
       </aside>
 

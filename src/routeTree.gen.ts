@@ -13,7 +13,9 @@ import { Route as AdminRouteImport } from './routes/admin'
 import { Route as SiteRouteImport } from './routes/_site'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as SiteIndexRouteImport } from './routes/_site.index'
+import { Route as AdminTeamRouteImport } from './routes/admin.team'
 import { Route as AdminPostsRouteImport } from './routes/admin.posts'
+import { Route as AdminPagesRouteImport } from './routes/admin.pages'
 import { Route as AdminMessagesRouteImport } from './routes/admin.messages'
 import { Route as AdminLoginRouteImport } from './routes/admin.login'
 import { Route as AdminGalleryRouteImport } from './routes/admin.gallery'
@@ -23,6 +25,7 @@ import { Route as SiteContactRouteImport } from './routes/_site.contact'
 import { Route as SiteAboutRouteImport } from './routes/_site.about'
 import { Route as SitePostsIndexRouteImport } from './routes/_site.posts.index'
 import { Route as SitePostsSlugRouteImport } from './routes/_site.posts.$slug'
+import { Route as SitePagesSlugRouteImport } from './routes/_site.pages.$slug'
 
 const AdminRoute = AdminRouteImport.update({
   id: '/admin',
@@ -43,9 +46,19 @@ const SiteIndexRoute = SiteIndexRouteImport.update({
   path: '/',
   getParentRoute: () => SiteRoute,
 } as any)
+const AdminTeamRoute = AdminTeamRouteImport.update({
+  id: '/team',
+  path: '/team',
+  getParentRoute: () => AdminRoute,
+} as any)
 const AdminPostsRoute = AdminPostsRouteImport.update({
   id: '/posts',
   path: '/posts',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminPagesRoute = AdminPagesRouteImport.update({
+  id: '/pages',
+  path: '/pages',
   getParentRoute: () => AdminRoute,
 } as any)
 const AdminMessagesRoute = AdminMessagesRouteImport.update({
@@ -93,6 +106,11 @@ const SitePostsSlugRoute = SitePostsSlugRouteImport.update({
   path: '/posts/$slug',
   getParentRoute: () => SiteRoute,
 } as any)
+const SitePagesSlugRoute = SitePagesSlugRouteImport.update({
+  id: '/pages/$slug',
+  path: '/pages/$slug',
+  getParentRoute: () => SiteRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof SiteIndexRoute
@@ -104,8 +122,11 @@ export interface FileRoutesByFullPath {
   '/admin/gallery': typeof AdminGalleryRoute
   '/admin/login': typeof AdminLoginRoute
   '/admin/messages': typeof AdminMessagesRoute
+  '/admin/pages': typeof AdminPagesRoute
   '/admin/posts': typeof AdminPostsRoute
+  '/admin/team': typeof AdminTeamRoute
   '/admin/': typeof AdminIndexRoute
+  '/pages/$slug': typeof SitePagesSlugRoute
   '/posts/$slug': typeof SitePostsSlugRoute
   '/posts/': typeof SitePostsIndexRoute
 }
@@ -117,9 +138,12 @@ export interface FileRoutesByTo {
   '/admin/gallery': typeof AdminGalleryRoute
   '/admin/login': typeof AdminLoginRoute
   '/admin/messages': typeof AdminMessagesRoute
+  '/admin/pages': typeof AdminPagesRoute
   '/admin/posts': typeof AdminPostsRoute
+  '/admin/team': typeof AdminTeamRoute
   '/': typeof SiteIndexRoute
   '/admin': typeof AdminIndexRoute
+  '/pages/$slug': typeof SitePagesSlugRoute
   '/posts/$slug': typeof SitePostsSlugRoute
   '/posts': typeof SitePostsIndexRoute
 }
@@ -134,9 +158,12 @@ export interface FileRoutesById {
   '/admin/gallery': typeof AdminGalleryRoute
   '/admin/login': typeof AdminLoginRoute
   '/admin/messages': typeof AdminMessagesRoute
+  '/admin/pages': typeof AdminPagesRoute
   '/admin/posts': typeof AdminPostsRoute
+  '/admin/team': typeof AdminTeamRoute
   '/_site/': typeof SiteIndexRoute
   '/admin/': typeof AdminIndexRoute
+  '/_site/pages/$slug': typeof SitePagesSlugRoute
   '/_site/posts/$slug': typeof SitePostsSlugRoute
   '/_site/posts/': typeof SitePostsIndexRoute
 }
@@ -152,8 +179,11 @@ export interface FileRouteTypes {
     | '/admin/gallery'
     | '/admin/login'
     | '/admin/messages'
+    | '/admin/pages'
     | '/admin/posts'
+    | '/admin/team'
     | '/admin/'
+    | '/pages/$slug'
     | '/posts/$slug'
     | '/posts/'
   fileRoutesByTo: FileRoutesByTo
@@ -165,9 +195,12 @@ export interface FileRouteTypes {
     | '/admin/gallery'
     | '/admin/login'
     | '/admin/messages'
+    | '/admin/pages'
     | '/admin/posts'
+    | '/admin/team'
     | '/'
     | '/admin'
+    | '/pages/$slug'
     | '/posts/$slug'
     | '/posts'
   id:
@@ -181,9 +214,12 @@ export interface FileRouteTypes {
     | '/admin/gallery'
     | '/admin/login'
     | '/admin/messages'
+    | '/admin/pages'
     | '/admin/posts'
+    | '/admin/team'
     | '/_site/'
     | '/admin/'
+    | '/_site/pages/$slug'
     | '/_site/posts/$slug'
     | '/_site/posts/'
   fileRoutesById: FileRoutesById
@@ -223,11 +259,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SiteIndexRouteImport
       parentRoute: typeof SiteRoute
     }
+    '/admin/team': {
+      id: '/admin/team'
+      path: '/team'
+      fullPath: '/admin/team'
+      preLoaderRoute: typeof AdminTeamRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/admin/posts': {
       id: '/admin/posts'
       path: '/posts'
       fullPath: '/admin/posts'
       preLoaderRoute: typeof AdminPostsRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/pages': {
+      id: '/admin/pages'
+      path: '/pages'
+      fullPath: '/admin/pages'
+      preLoaderRoute: typeof AdminPagesRouteImport
       parentRoute: typeof AdminRoute
     }
     '/admin/messages': {
@@ -293,6 +343,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SitePostsSlugRouteImport
       parentRoute: typeof SiteRoute
     }
+    '/_site/pages/$slug': {
+      id: '/_site/pages/$slug'
+      path: '/pages/$slug'
+      fullPath: '/pages/$slug'
+      preLoaderRoute: typeof SitePagesSlugRouteImport
+      parentRoute: typeof SiteRoute
+    }
   }
 }
 
@@ -302,6 +359,7 @@ interface SiteRouteChildren {
   SiteDonateRoute: typeof SiteDonateRoute
   SiteGalleryRoute: typeof SiteGalleryRoute
   SiteIndexRoute: typeof SiteIndexRoute
+  SitePagesSlugRoute: typeof SitePagesSlugRoute
   SitePostsSlugRoute: typeof SitePostsSlugRoute
   SitePostsIndexRoute: typeof SitePostsIndexRoute
 }
@@ -312,6 +370,7 @@ const SiteRouteChildren: SiteRouteChildren = {
   SiteDonateRoute: SiteDonateRoute,
   SiteGalleryRoute: SiteGalleryRoute,
   SiteIndexRoute: SiteIndexRoute,
+  SitePagesSlugRoute: SitePagesSlugRoute,
   SitePostsSlugRoute: SitePostsSlugRoute,
   SitePostsIndexRoute: SitePostsIndexRoute,
 }
@@ -322,7 +381,9 @@ interface AdminRouteChildren {
   AdminGalleryRoute: typeof AdminGalleryRoute
   AdminLoginRoute: typeof AdminLoginRoute
   AdminMessagesRoute: typeof AdminMessagesRoute
+  AdminPagesRoute: typeof AdminPagesRoute
   AdminPostsRoute: typeof AdminPostsRoute
+  AdminTeamRoute: typeof AdminTeamRoute
   AdminIndexRoute: typeof AdminIndexRoute
 }
 
@@ -330,7 +391,9 @@ const AdminRouteChildren: AdminRouteChildren = {
   AdminGalleryRoute: AdminGalleryRoute,
   AdminLoginRoute: AdminLoginRoute,
   AdminMessagesRoute: AdminMessagesRoute,
+  AdminPagesRoute: AdminPagesRoute,
   AdminPostsRoute: AdminPostsRoute,
+  AdminTeamRoute: AdminTeamRoute,
   AdminIndexRoute: AdminIndexRoute,
 }
 

@@ -1,4 +1,5 @@
 import { Outlet, createRootRoute, Link } from "@tanstack/react-router";
+import { ThemeProvider } from "@/components/theme-provider";
 
 function NotFoundComponent() {
   return (
@@ -29,8 +30,10 @@ export const Route = createRootRoute({
 
 function RootComponent() {
   return (
-    <div className="flex min-h-screen flex-col">
-      <Outlet />
-    </div>
+    <ThemeProvider defaultTheme="system" storageKey="vite-ui-theme">
+      <div className="flex min-h-screen flex-col">
+        <Outlet />
+      </div>
+    </ThemeProvider>
   );
 }

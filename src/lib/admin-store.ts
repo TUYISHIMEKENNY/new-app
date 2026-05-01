@@ -52,7 +52,75 @@ export async function listPosts(): Promise<AdminPost[]> {
   const { data, error } = await supabase
     .from("posts")
     .select("*")
+    .not("category", "in", '("Page","TeamMember")')
     .order("date", { ascending: false });
+  if (error) throw error;
+  return (data ?? []).map((p) => ({
+    id: p.id,
+    slug: p.slug,
+    title: p.title,
+    category: p.category,
+    author: p.author,
+    date: p.date,
+    status: p.status as "Draft" | "Published",
+    excerpt: p.excerpt ?? "",
+    body: p.body,
+    cover: p.cover,
+  }));
+}
+
+export async function listPages(): Promise<AdminPost[]> {
+  const { data, error } = await supabase
+    .from("posts")
+    .select("*")
+    .eq("category", "Page")
+    .order("date", { ascending: false });
+  if (error) throw error;
+  return (data ?? []).map((p) => ({
+    id: p.id,
+    slug: p.slug,
+    title: p.title,
+    category: p.category,
+    author: p.author,
+    date: p.date,
+    status: p.status as "Draft" | "Published",
+    excerpt: p.excerpt ?? "",
+    body: p.body,
+    cover: p.cover,
+  }));
+}
+
+export async function getPageBySlug(slug: string): Promise<AdminPost | null> {
+  const { data, error } = await supabase
+    .from("posts")
+    .select("*")
+    .eq("category", "Page")
+    .eq("slug", slug)
+    .single();
+  if (error) {
+    if (error.code === 'PGRST116') return null; // Not found
+    throw error;
+  }
+  return {
+    id: data.id,
+    slug: data.slug,
+    title: data.title,
+    category: data.category,
+    author: data.author,
+    date: data.date,
+    status: data.status as "Draft" | "Published",
+    excerpt: data.excerpt ?? "",
+    body: data.body,
+    cover: data.cover,
+  };
+}
+
+export async function listTeamMembers(): Promise<AdminPost[]> {
+  const { data, error } = await supabase
+    .from("posts")
+    .select("*")
+    .eq("category", "TeamMember")
+    .order("created_at", { ascending: true });
   if (error) throw error;
   return (data ?? []).map((p) => ({
     id: p.id,
@@ -93,6 +161,7 @@ export async function updatePost(id: string, patch: Partial<AdminPost>) {
   const { error } = await supabase
     .from("posts")
     .update({
+      slug: patch.slug,
       title: patch.title,
       category: patch.category,
       author: patch.author,
