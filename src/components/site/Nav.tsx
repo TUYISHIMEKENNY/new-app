@@ -86,7 +86,7 @@ export function Nav() {
             className="h-10 w-10 md:h-12 md:w-12 rounded-full object-cover border-2 border-primary/10 shadow-sm shrink-0"
           />
           <span className="text-base md:text-lg font-black tracking-tight font-display hidden sm:block whitespace-nowrap">
-            EPILEPSY ALLIANCE AFRICA
+            ILAE YES Rwanda 
           </span>
         </Link>
 

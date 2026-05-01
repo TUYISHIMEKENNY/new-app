@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowUpRight, ArrowRight } from "lucide-react";
-import hero from "@/assets/hero.jpeg";
+import hero from "@/assets/new-hero.jpeg";
 import science from "@/assets/science.jpg";
 import { facts } from "@/data/content";
 import sportEvent from "@/assets/sport-event.jpeg";
@@ -68,17 +68,19 @@ function Home() {
             </div>
           </div>
 
-          <div className="relative lg:col-span-6">
-            <div className="relative aspect-[4/5] overflow-hidden lg:aspect-auto lg:h-full">
+          <div className="relative lg:col-span-6 flex items-center justify-center lg:pl-10">
+            <div className="relative w-full h-[60vh] sm:h-[70vh] lg:h-[85vh] overflow-hidden rounded-3xl shadow-2xl ring-1 ring-border/50 group">
               <img
                 src={hero}
-                // alt="Hands cupping a sprig of lavender, the international color of epilepsy awareness."
                 alt="Community members gathering for a Brain Week movement event in Kigali, Rwanda."
-                className="h-full w-full object-cover"
-                width={1600}/>
-              <div className="absolute bottom-6 left-6 right-6 flex items-end justify-between text-xs uppercase tracking-[0.18em] text-background/90 mix-blend-difference">
-                <span>Lavender / ILAE YOUTH NURSE RWANDA </span>
-                <span>Vol. I</span>
+                className="h-full w-full object-cover object-center transition-transform duration-700 ease-in-out group-hover:scale-105"
+                width={1600}
+              />
+              {/* Subtle Gradient Overlay */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent pointer-events-none opacity-90 transition-opacity duration-500 group-hover:opacity-100" />
+              <div className="absolute bottom-8 left-8 right-8 flex items-end justify-between text-xs font-bold uppercase tracking-[0.2em] text-white/90">
+                <span className="drop-shadow-md">ILAE YES RWANDA</span>
+                <span className="drop-shadow-md">Vol. I</span>
               </div>
             </div>
           </div>

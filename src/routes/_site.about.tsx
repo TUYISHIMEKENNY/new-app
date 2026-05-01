@@ -1,11 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
-import community from "@/assets/community.jpg";
+import sportEvent from "@/assets/sport.jpeg";
 
 export const Route = createFileRoute("/_site/about")({
   component: About,
   head: () => ({
     meta: [
-      { title: "About — Lumen Epilepsy Initiative" },
+      { title: "About — ILAE YES Rwanda " },
       {
         name: "description",
         content:
@@ -15,28 +15,6 @@ export const Route = createFileRoute("/_site/about")({
   }),
 });
 
-const principles = [
-  {
-    n: "01",
-    title: "Evidence first",
-    body: "Every guide and statement we publish is reviewed by our medical advisory board. We cite sources. We update when the science updates.",
-  },
-  {
-    n: "02",
-    title: "Independent",
-    body: "We accept no funding from pharmaceutical or device manufacturers. Our work answers to patients and the public, not to commercial interests.",
-  },
-  {
-    n: "03",
-    title: "Plain language",
-    body: "Medical literacy is a human right. We translate complex research into language that respects both the science and the reader.",
-  },
-  {
-    n: "04",
-    title: "Community-led",
-    body: "Programs are designed alongside people who live with epilepsy. Lived experience is not consulted at the end — it shapes the work from the start.",
-  },
-];
 
 function About() {
   return (
@@ -54,28 +32,15 @@ function About() {
       {/* What is epilepsy */}
       <section className="mx-auto grid max-w-7xl grid-cols-1 gap-12 px-6 py-24 md:px-10 lg:grid-cols-12">
         <aside className="lg:col-span-4">
-          <p className="eyebrow">The condition</p>
-          <h2 className="mt-3 font-display text-4xl text-foreground">What epilepsy is</h2>
+          <p className="eyebrow">Who we are</p>
+          <h2 className="mt-3 font-display text-4xl text-foreground">Who we are </h2>
         </aside>
         <div className="space-y-6 text-base leading-relaxed text-muted-foreground lg:col-span-8 lg:text-lg">
           <p>
-            Epilepsy is a neurological condition characterized by recurrent,
-            unprovoked seizures — brief episodes of altered electrical activity
-            in the brain. It is among the most common neurological disorders in
-            the world, affecting roughly one in twenty-six people at some point
-            in their lives.
+            ILAE YES Rwanda, we are dedicated to empowering youth and transforming communities through education, leadership, innovation, and social responsibility. A major focus of our work is supporting people living with epilepsy by raising awareness, fighting stigma, promoting inclusion, and encouraging access to care and support within communities.
           </p>
           <p>
-            Despite its prevalence, public understanding remains shallow.
-            Epilepsy is not a single disease but a family of more than forty
-            distinct syndromes. Most people who develop it can, with
-            appropriate treatment, live full and seizure-free lives.
-          </p>
-          <p>
-            What stands in the way is rarely the medicine. It is the silence —
-            the assumption that a diagnosis is something to hide, the workplace
-            that does not know how to respond, the friend who has never been
-            told what to do.
+            Our commitment is guided by integrity, teamwork, inclusiveness, and excellence. Together with our partners and communities, we strive to uplift lives, restore hope, and create lasting social transformation.
           </p>
         </div>
       </section>
@@ -85,46 +50,18 @@ function About() {
         <div className="mx-auto max-w-7xl px-6 md:px-10">
           <figure className="relative">
             <img
-              src={community}
-              alt="A community support circle in a sunlit room."
+              src={sportEvent}
+              alt="A community sports event for epilepsy awareness."
               className="aspect-[16/8] w-full object-cover"
               loading="lazy"
             />
             <figcaption className="mt-3 text-xs uppercase tracking-[0.18em] text-muted-foreground">
-              Sunday Support Circle, ILAE YOUTH NURSE RWANDA  Center
+              Sports Event, ILAE YES Rwanda
             </figcaption>
           </figure>
         </div>
       </section>
 
-      {/* Principles */}
-      <section className="mx-auto max-w-7xl px-6 py-24 md:px-10">
-        <div className="grid grid-cols-1 gap-12 lg:grid-cols-12">
-          <aside className="lg:col-span-4">
-            <p className="eyebrow">Our Principles</p>
-            <h2 className="mt-3 font-display text-4xl text-foreground">
-              How we work
-            </h2>
-          </aside>
-          <div className="lg:col-span-8">
-            <ul className="divide-y divide-border border-y border-border">
-              {principles.map((p) => (
-                <li key={p.n} className="grid grid-cols-12 gap-6 py-8">
-                  <span className="col-span-2 font-display text-2xl text-primary md:col-span-1">
-                    {p.n}
-                  </span>
-                  <div className="col-span-10 md:col-span-11">
-                    <h3 className="font-display text-2xl text-foreground">{p.title}</h3>
-                    <p className="mt-2 text-base leading-relaxed text-muted-foreground">
-                      {p.body}
-                    </p>
-                  </div>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-      </section>
 
       {/* Quick facts */}
       <section className="border-t border-border bg-background">
