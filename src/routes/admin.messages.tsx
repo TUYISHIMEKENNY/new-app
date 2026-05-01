@@ -1,11 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import {
-  deleteMessage,
-  listMessages,
-  markMessageRead,
-  type AdminMessage,
-} from "@/lib/admin-store";
+import { deleteMessage, listMessages, markMessageRead, type AdminMessage } from "@/lib/admin-store";
 import { Mail, MailOpen, Trash2 } from "lucide-react";
 
 export const Route = createFileRoute("/admin/messages")({
@@ -94,7 +89,9 @@ function AdminMessages() {
                 >
                   <div className="flex items-start justify-between gap-2">
                     <div className="flex min-w-0 items-center gap-2">
-                      {!m.read && <span className="inline-block h-2 w-2 shrink-0 rounded-full bg-primary" />}
+                      {!m.read && (
+                        <span className="inline-block h-2 w-2 shrink-0 rounded-full bg-primary" />
+                      )}
                       <p
                         className={`truncate text-sm ${
                           m.read ? "text-foreground" : "font-semibold text-foreground"

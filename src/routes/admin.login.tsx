@@ -83,7 +83,7 @@ function AdminLogin() {
           <aside className="relative hidden flex-col justify-between border-r border-border bg-foreground p-10 text-background md:flex">
             <div>
               <p className="text-[0.7rem] font-semibold uppercase tracking-[0.22em] text-background/70">
-                ILAE YOUTH NURSE RWANDA 
+                ILAE YOUTH NURSE RWANDA
               </p>
               <p className="mt-2 text-sm text-background/70">Editorial console</p>
             </div>
@@ -92,7 +92,8 @@ function AdminLogin() {
                 The quiet machinery <br /> behind the journal.
               </h1>
               <p className="mt-6 max-w-sm text-sm leading-relaxed text-background/70">
-                Manage stories, gallery, and reader correspondence from one place. Every change is recorded.
+                Manage stories, gallery, and reader correspondence from one place. Every change is
+                recorded.
               </p>
             </div>
             <p className="text-[0.7rem] uppercase tracking-[0.22em] text-background/50">
@@ -178,9 +179,7 @@ function AdminLogin() {
                 }}
                 className="text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-primary hover:underline"
               >
-                {mode === "signin"
-                  ? "First time? Create the initial admin →"
-                  : "← Back to sign in"}
+                {mode === "signin" ? "First time? Create the initial admin →" : "← Back to sign in"}
               </button>
               <p className="mt-3 text-xs text-muted-foreground">
                 The first account that signs up automatically gets the admin role.

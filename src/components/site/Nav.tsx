@@ -65,13 +65,13 @@ export function Nav() {
             <span>47 members in 31 African countries</span>
           </div>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-6">
-            <a href="https://wa.me/254705001510" target="_blank" rel="noreferrer" className="flex items-center gap-2 hover:text-primary-foreground/80 transition-colors">
+            <a href="https://wa.me/+250787251399" target="_blank" rel="noreferrer" className="flex items-center gap-2 hover:text-primary-foreground/80 transition-colors">
               <MessageCircle className="h-3.5 w-3.5 shrink-0" />
-              <span className="truncate max-w-[200px] sm:max-w-none">+254705001510 <span className="opacity-75 font-normal ml-1 hidden lg:inline">Join our WhatsApp Hub</span></span>
+              <span className="truncate max-w-[200px] sm:max-w-none">+250 787 251 399<span className="opacity-75 font-normal ml-1 hidden lg:inline">Join our WhatsApp Hub</span></span>
             </a>
-            <a href="mailto:epilepsyallianceafrica@gmail.com" className="flex items-center gap-2 hover:text-primary-foreground/80 transition-colors">
+            <a href="mailto:yesilaerwanda@gmail.com" className="flex items-center gap-2 hover:text-primary-foreground/80 transition-colors">
               <Mail className="h-3.5 w-3.5 shrink-0" />
-              <span className="truncate max-w-[200px] sm:max-w-none">epilepsyallianceafrica@gmail.com <span className="opacity-75 font-normal ml-1 hidden lg:inline">Send us an Email</span></span>
+              <span className="truncate max-w-[200px] sm:max-w-none">yesilaerwanda@gmail.com <span className="opacity-75 font-normal ml-1 hidden lg:inline">Send us an Email</span></span>
             </a>
           </div>
         </div>

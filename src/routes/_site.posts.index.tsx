@@ -12,8 +12,7 @@ export const Route = createFileRoute("/_site/posts/")({
       { title: "Journal — Lumen" },
       {
         name: "description",
-        content:
-          "Essays, guides, and research from the Lumen Epilepsy Initiative.",
+        content: "Essays, guides, and research from the Lumen Epilepsy Initiative.",
       },
     ],
   }),
@@ -28,7 +27,7 @@ function calculateReadTime(body?: string | null) {
 
 function PostsIndex() {
   const posts = Route.useLoaderData();
-  
+
   if (posts.length === 0) {
     return (
       <article>
@@ -39,8 +38,8 @@ function PostsIndex() {
               Essays, guides, research.
             </h1>
             <p className="mt-6 max-w-2xl text-base leading-relaxed text-muted-foreground md:text-lg">
-              A long-form publication from the Lumen Initiative. Written by
-              clinicians, researchers, and people who live with epilepsy.
+              A long-form publication from the Lumen Initiative. Written by clinicians, researchers,
+              and people who live with epilepsy.
             </p>
           </div>
         </header>
@@ -61,19 +60,15 @@ function PostsIndex() {
             Essays, guides, research.
           </h1>
           <p className="mt-6 max-w-2xl text-base leading-relaxed text-muted-foreground md:text-lg">
-            A long-form publication from the Lumen Initiative. Written by
-            clinicians, researchers, and people who live with epilepsy.
+            A long-form publication from the Lumen Initiative. Written by clinicians, researchers,
+            and people who live with epilepsy.
           </p>
         </div>
       </header>
 
       {/* Lead */}
       <section className="border-b border-border">
-        <Link
-          to="/posts/$slug"
-          params={{ slug: lead.slug }}
-          className="group block"
-        >
+        <Link to="/posts/$slug" params={{ slug: lead.slug }} className="group block">
           <div className="mx-auto grid max-w-7xl grid-cols-1 gap-10 px-6 py-16 md:px-10 lg:grid-cols-12 lg:py-20">
             <div className="overflow-hidden lg:col-span-7">
               <img
@@ -94,7 +89,8 @@ function PostsIndex() {
               </h2>
               <p className="mt-4 text-base leading-relaxed text-muted-foreground">{lead.excerpt}</p>
               <p className="mt-6 text-sm text-foreground">
-                <span className="text-muted-foreground">By</span> {lead.author} · {calculateReadTime(lead.body)}
+                <span className="text-muted-foreground">By</span> {lead.author} ·{" "}
+                {calculateReadTime(lead.body)}
               </p>
             </div>
           </div>

@@ -1,7 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowUpRight, ArrowRight } from "lucide-react";
+import { ReadMore } from "@/components/ReadMore";
 import hero from "@/assets/new-hero.jpeg";
-import science from "@/assets/science.jpg";
+import researchImage from "@/assets/research.jpeg";
 import { facts } from "@/data/content";
 import sportEvent from "@/assets/sport-event.jpeg";
 import { listPosts } from "@/lib/admin-store";
@@ -42,12 +43,19 @@ function Home() {
             <div>
               <p className="eyebrow">Issue 01 · Spring 2026</p>
               <h1 className="mt-8 font-display text-5xl leading-[1.05] tracking-tight text-foreground md:text-6xl lg:text-7xl">
-                Empowering the next generation of <em className="font-display italic text-primary">epilepsy care.</em>
+                Empowering the next generation of{" "}
+                <em className="font-display italic text-primary">epilepsy care.</em>
               </h1>
-              <p className="mt-8 max-w-md text-lg leading-relaxed text-muted-foreground">
-                The Young Epilepsy Section (YES) of the ILAE is a worldwide organization of young people who are in the early stages of a career focused on the care of people with epilepsy, and/or epilepsy research.
-                By observing the high prevalence of epilepsy, new epilepsy diagnoses, and limited access to care due to the shortage of healthcare professionals in Rwanda.
-              </p>
+              <ReadMore
+                lines={3}
+                className="mt-8 max-w-md text-lg leading-relaxed text-muted-foreground"
+              >
+                The Young Epilepsy Section (YES) of the ILAE is a worldwide organization of young
+                people who are in the early stages of a career focused on the care of people with
+                epilepsy, and/or epilepsy research. By observing the high prevalence of epilepsy,
+                new epilepsy diagnoses, and limited access to care due to the shortage of healthcare
+                professionals in Rwanda.
+              </ReadMore>
             </div>
 
             <div className="mt-12 flex flex-wrap items-center gap-4">
@@ -104,11 +112,12 @@ function Home() {
         <div className="flex items-end justify-between border-b border-border pb-6">
           <div>
             <p className="eyebrow">From the Journal</p>
-            <h2 className="mt-3 font-display text-4xl text-foreground md:text-5xl">
-              Reading list
-            </h2>
+            <h2 className="mt-3 font-display text-4xl text-foreground md:text-5xl">Reading list</h2>
           </div>
-          <Link to="/posts" className="hidden text-sm underline underline-offset-4 hover:text-primary md:inline">
+          <Link
+            to="/posts"
+            className="hidden text-sm underline underline-offset-4 hover:text-primary md:inline"
+          >
             All articles →
           </Link>
         </div>
@@ -161,7 +170,9 @@ function Home() {
                         <h4 className="mt-3 font-display text-2xl leading-tight text-foreground transition-colors group-hover:text-primary">
                           {p.title}
                         </h4>
-                        <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{p.excerpt}</p>
+                        <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                          {p.excerpt}
+                        </p>
                       </Link>
                     </li>
                   ))}
@@ -183,7 +194,8 @@ function Home() {
                 Advocacy through <em className="italic">action.</em>
               </h2>
               <p className="mt-6 text-lg leading-relaxed text-muted-foreground">
-                Our community events, including the recent sports initiative in Kigali, bring people together to raise awareness and foster inclusion for those living with epilepsy.
+                Our community events, including the recent sports initiative in Kigali, bring people
+                together to raise awareness and foster inclusion for those living with epilepsy.
               </p>
               <div className="mt-10">
                 <Link
@@ -209,14 +221,13 @@ function Home() {
         </div>
       </section>
 
-
       {/* CTA — research */}
       <section className="border-y border-border bg-background">
         <div className="mx-auto grid max-w-7xl grid-cols-1 gap-0 px-6 md:px-10 lg:grid-cols-12">
           <div className="relative lg:col-span-5">
             <img
-              src={science}
-              alt="Abstract illustration of a neuron network in deep violet."
+              src={researchImage}
+              alt="Research members working together."
               className="h-full max-h-[520px] w-full object-cover"
               loading="lazy"
             />
@@ -227,10 +238,10 @@ function Home() {
               Quiet, careful, evidence-led.
             </h2>
             <p className="max-w-xl text-base leading-relaxed text-muted-foreground">
-              ILAE YOUTH NURSE RWANDA  funds independent research, publishes plain-language guides
-              for patients and families, and runs community programs in twelve
-              cities. We don't sell anything. We don't accept industry funding.
-              Everything we do is reviewed by our medical advisory board.
+              ILAE YOUTH NURSE RWANDA funds independent research, publishes plain-language guides
+              for patients and families, and runs community programs in twelve cities. We don't sell
+              anything. We don't accept industry funding. Everything we do is reviewed by our
+              medical advisory board.
             </p>
             <div className="flex flex-wrap gap-4 pt-2">
               <Link

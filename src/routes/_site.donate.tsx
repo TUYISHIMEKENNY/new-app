@@ -39,20 +39,18 @@ function Donate() {
           </h1>
           <p className="mt-8 max-w-2xl text-lg leading-relaxed text-background/80">
             Epilepsy Alliance Africa accepts no industry funding. We are sustained entirely by
-            individual donors and a small number of mission-aligned foundations.
-            Every contribution is acknowledged. Every dollar is accounted for.
+            individual donors and a small number of mission-aligned foundations. Every contribution
+            is acknowledged. Every dollar is accounted for.
           </p>
         </div>
       </header>
 
       <section className="bg-background">
         <div className="mx-auto max-w-3xl px-6 py-20 md:px-10">
-          
           <div className="bg-card border border-border shadow-sm p-8 md:p-12">
             <h2 className="font-display text-3xl mb-8">Make a Donation</h2>
-            
+
             <form onSubmit={(e) => e.preventDefault()} className="space-y-10">
-              
               {/* Donation Option */}
               <div>
                 <label className="block text-sm font-semibold uppercase tracking-wider mb-4">
@@ -63,8 +61,8 @@ function Donate() {
                     type="button"
                     onClick={() => setDonationType("One-Time")}
                     className={`flex-1 py-3 text-sm font-bold transition-all ${
-                      donationType === "One-Time" 
-                        ? "bg-background shadow-sm text-foreground" 
+                      donationType === "One-Time"
+                        ? "bg-background shadow-sm text-foreground"
                         : "text-muted-foreground hover:text-foreground"
                     }`}
                   >
@@ -74,8 +72,8 @@ function Donate() {
                     type="button"
                     onClick={() => setDonationType("Monthly")}
                     className={`flex-1 py-3 text-sm font-bold transition-all ${
-                      donationType === "Monthly" 
-                        ? "bg-background shadow-sm text-foreground" 
+                      donationType === "Monthly"
+                        ? "bg-background shadow-sm text-foreground"
                         : "text-muted-foreground hover:text-foreground"
                     }`}
                   >
@@ -96,8 +94,8 @@ function Donate() {
                       type="button"
                       onClick={() => setSelectedAmount(amt)}
                       className={`py-4 border-2 font-display text-2xl transition-all ${
-                        selectedAmount === amt 
-                          ? "border-primary bg-primary/5 text-primary" 
+                        selectedAmount === amt
+                          ? "border-primary bg-primary/5 text-primary"
                           : "border-border bg-background hover:border-foreground/30 text-foreground"
                       }`}
                     >
@@ -108,8 +106,8 @@ function Donate() {
                     type="button"
                     onClick={() => setSelectedAmount("Other")}
                     className={`py-4 border-2 font-display text-xl transition-all ${
-                      selectedAmount === "Other" 
-                        ? "border-primary bg-primary/5 text-primary" 
+                      selectedAmount === "Other"
+                        ? "border-primary bg-primary/5 text-primary"
                         : "border-border bg-background hover:border-foreground/30 text-foreground"
                     }`}
                   >
@@ -125,7 +123,9 @@ function Donate() {
                     Custom Donation Amount <span className="text-destructive">*Required</span>
                   </label>
                   <div className="relative">
-                    <span className="absolute left-4 top-1/2 -translate-y-1/2 font-display text-2xl text-muted-foreground">$</span>
+                    <span className="absolute left-4 top-1/2 -translate-y-1/2 font-display text-2xl text-muted-foreground">
+                      $
+                    </span>
                     <input
                       type="number"
                       min="1"
@@ -141,7 +141,9 @@ function Donate() {
 
               {/* Processing Costs */}
               <div className="bg-secondary/30 border border-border p-5">
-                <p className="text-sm font-semibold uppercase tracking-wider mb-3">Processing costs</p>
+                <p className="text-sm font-semibold uppercase tracking-wider mb-3">
+                  Processing costs
+                </p>
                 <label className="flex items-start gap-3 cursor-pointer group">
                   <div className="relative flex items-center justify-center mt-0.5">
                     <input
@@ -165,8 +167,8 @@ function Donate() {
                 <div className="bg-primary/10 border-l-4 border-primary p-4 flex items-center gap-4">
                   <Heart className="h-6 w-6 text-primary fill-primary/20 shrink-0" />
                   <p className="text-primary font-medium m-0">
-                    <button 
-                      type="button" 
+                    <button
+                      type="button"
                       onClick={() => setDonationType("Monthly")}
                       className="font-bold underline underline-offset-2 hover:text-primary/80 transition-colors"
                     >
@@ -177,20 +179,23 @@ function Donate() {
               )}
 
               {/* Submit Button */}
-              <button
-                type="submit"
-                className="w-full bg-primary py-5 text-xl font-display text-primary-foreground hover:bg-primary/90 transition-all flex items-center justify-center gap-3 shadow-[0_0_40px_-10px_rgba(0,0,0,0.3)] hover:shadow-[0_0_60px_-15px_rgba(0,0,0,0.5)] hover:-translate-y-1"
+              <Link
+                to="/donate-details"
+                search={{ amount: totalAmount, type: donationType }}
+                className="w-full bg-primary py-5 text-xl font-display text-primary-foreground hover:bg-primary/90 transition-all flex items-center justify-center gap-3 shadow-[0_0_40px_-10px_rgba(0,0,0,0.3)] hover:shadow-[0_0_60px_-15px_rgba(0,0,0,0.5)] hover:-translate-y-1 rounded-md"
               >
                 <Heart className="h-5 w-5 fill-current" />
                 Give ${totalAmount.toFixed(2)}
-              </button>
-
+              </Link>
             </form>
           </div>
 
           <p className="mt-8 text-center text-sm text-muted-foreground">
             For wire transfers, planned giving, or partnership inquiries, please write to{" "}
-            <a href="mailto:epilepsyallianceafrica@gmail.com" className="text-foreground underline underline-offset-4 hover:text-primary">
+            <a
+              href="mailto:epilepsyallianceafrica@gmail.com"
+              className="text-foreground underline underline-offset-4 hover:text-primary"
+            >
               epilepsyallianceafrica@gmail.com
             </a>
           </p>

@@ -88,28 +88,77 @@ function AdminPages() {
   };
 
   const seedPages = async () => {
-    if (!confirm("This will create all requested pages with placeholder content if they do not exist yet. Continue?")) return;
+    if (
+      !confirm(
+        "This will create all requested pages with placeholder content if they do not exist yet. Continue?",
+      )
+    )
+      return;
     setLoading(true);
     try {
       const defaultPages = [
         { title: "Teams", slug: "teams", excerpt: "Meet the team behind our work." },
         { title: "Members", slug: "members", excerpt: "Information about our community members." },
-        { title: "Stories", slug: "stories", excerpt: "Read inspiring stories from the community." },
-        { title: "Programs & Services", slug: "programs-services", excerpt: "Explore the programs and services we offer." },
-        { title: "Conferences", slug: "conferences", excerpt: "Details on upcoming and past conferences." },
-        { title: "Stripes Week", slug: "stripes-week", excerpt: "Information about Stripes Week events." },
-        { title: "Info / Forms / Videos", slug: "info-forms-videos", excerpt: "Helpful resources, forms, and video materials." },
-        { title: "Webinars", slug: "webinars", excerpt: "Watch past webinars and register for upcoming ones." },
-        { title: "Research", slug: "research", excerpt: "Discover our latest research initiatives and findings." },
-        { title: "Tele-Health", slug: "tele-health", excerpt: "Access our telehealth services and information." },
-        { title: "Leader's Section", slug: "leaders-section", excerpt: "Resources and updates for community leaders." },
-        { title: "Discussion Forum", slug: "discussion-forum", excerpt: "Join the conversation in our community forum." },
-        { title: "Newsletter", slug: "newsletter", excerpt: "Subscribe and read our latest newsletters." },
+        {
+          title: "Stories",
+          slug: "stories",
+          excerpt: "Read inspiring stories from the community.",
+        },
+        {
+          title: "Programs & Services",
+          slug: "programs-services",
+          excerpt: "Explore the programs and services we offer.",
+        },
+        {
+          title: "Conferences",
+          slug: "conferences",
+          excerpt: "Details on upcoming and past conferences.",
+        },
+        {
+          title: "Stripes Week",
+          slug: "stripes-week",
+          excerpt: "Information about Stripes Week events.",
+        },
+        {
+          title: "Info / Forms / Videos",
+          slug: "info-forms-videos",
+          excerpt: "Helpful resources, forms, and video materials.",
+        },
+        {
+          title: "Webinars",
+          slug: "webinars",
+          excerpt: "Watch past webinars and register for upcoming ones.",
+        },
+        {
+          title: "Research",
+          slug: "research",
+          excerpt: "Discover our latest research initiatives and findings.",
+        },
+        {
+          title: "Tele-Health",
+          slug: "tele-health",
+          excerpt: "Access our telehealth services and information.",
+        },
+        {
+          title: "Leader's Section",
+          slug: "leaders-section",
+          excerpt: "Resources and updates for community leaders.",
+        },
+        {
+          title: "Discussion Forum",
+          slug: "discussion-forum",
+          excerpt: "Join the conversation in our community forum.",
+        },
+        {
+          title: "Newsletter",
+          slug: "newsletter",
+          excerpt: "Subscribe and read our latest newsletters.",
+        },
       ];
 
       for (const p of defaultPages) {
         // Check if a page with this slug or title already exists
-        if (!pages.some(existing => existing.slug === p.slug || existing.title === p.title)) {
+        if (!pages.some((existing) => existing.slug === p.slug || existing.title === p.title)) {
           await createPost({
             slug: p.slug,
             title: p.title,

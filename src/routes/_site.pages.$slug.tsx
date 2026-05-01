@@ -128,7 +128,9 @@ export const Route = createFileRoute("/_site/pages/$slug")({
   errorComponent: () => (
     <article className="mx-auto max-w-3xl px-6 py-32 text-center md:px-10 md:py-48">
       <h1 className="font-display text-4xl text-foreground">Page not found</h1>
-      <p className="mt-4 text-muted-foreground">The page you're looking for doesn't exist or isn't published yet.</p>
+      <p className="mt-4 text-muted-foreground">
+        The page you're looking for doesn't exist or isn't published yet.
+      </p>
     </article>
   ),
   head: ({ loaderData }) => {
@@ -150,9 +152,9 @@ function PageView() {
     // If it's the members page and the body is empty or just the default placeholder
     if (p.slug === "members" && (!p.body || p.body.includes("This is placeholder content"))) {
       return `
-        <p class="lead text-xl text-muted-foreground mb-8">We are an alliance of associations, groups and individuals fighting to prevent, reduce and eradicate the social, economic, cultural, environmental, physical, medical, psychological, educational and political barriers people with epilepsy and their communities face. We welcome new members.</p>
+        <p class="lead text-xl text-muted-foreground mb-8">We are an NGO, groups and individuals fighting to prevent, reduce and eradicate the social, economic, cultural, environmental, physical, medical, psychological, educational and political barriers people with epilepsy and their communities face. We welcome new members.</p>
         
-        <h2>Who can become a member or alliancee?</h2>
+        <h2>Who can become a member or ILAE YES Rwanda member?</h2>
         <ul>
           <li><strong>Organisations, trusts, clubs or groups</strong>, including online groups interested in epilepsy, disability and health.</li>
           <li><strong>Associations</strong> of people with epilepsy or families of people with epilepsy.</li>
@@ -164,19 +166,19 @@ function PageView() {
 
         <h2>How to become a member</h2>
         
-        <h3>1. Organisations, associations or institutions in Africa</h3>
+        <h3>1. Organisations, associations or institutions in Rwanda</h3>
         <ul>
-          <li>Operating in Africa</li>
-          <li>Registered in Africa</li>
+          <li>Operating in Rwanda</li>
+          <li>Registered in Rwanda</li>
           <li>Fill in a membership form</li>
           <li>Pay annual dues equivalent to <strong>USD 20 a year</strong></li>
         </ul>
         
         <p class="text-center font-bold text-muted-foreground my-4">— OR —</p>
 
-        <h3>2. Partner organisations outside Africa</h3>
+        <h3>2. Partner organisations outside Rwanda</h3>
         <ul>
-          <li>A partner member organisation, association or institution not based in Africa</li>
+          <li>A partner member organisation, association or institution not based in Rwanda</li>
           <li>Fill a membership form</li>
           <li>Pay a membership fee equivalent to <strong>USD 40 a year</strong> or commit a donation of at least USD 40 a year</li>
         </ul>
@@ -185,15 +187,15 @@ function PageView() {
 
         <h3>3. Individuals & Ambassadors</h3>
         <ul>
-          <li>An individual member based in or outside Africa paying a membership fee of <strong>USD 10 per year</strong></li>
-          <li><strong>Ambassador member</strong> based outside Africa who do not pay a membership fee. Their role is to promote the work of the EAA outside Africa.</li>
+          <li>An individual member based in or outside Rwanda paying a membership fee of <strong>USD 10 per year</strong></li>
+          <li><strong>Ambassador member</strong> based outside Rwanda who do not pay a membership fee. Their role is to promote the work of the ILAE YES Rwanda outside Rwanda.</li>
           <li>Fill a membership form</li>
         </ul>
 
         <hr class="my-10 border-border" />
 
         <h2>Membership form</h2>
-        <p>Please download and fill in the form below, then email it to <a href="mailto:epilepsyallianceafrica@gmail.com">epilepsyallianceafrica@gmail.com</a>.</p>
+        <p>Please download and fill in the form below, then email it to <a href="mailto:yesilaerwanda@gmail.com">yesilaerwanda@gmail.com</a>.</p>
         <p>Once your membership is approved, you will pay membership fees annually. Please use the invoice below to pay your fees.</p>
         
         <div class="mt-8 flex gap-4">
@@ -240,11 +242,11 @@ function PageView() {
         <div class="flex flex-col gap-3">
           <p class="flex items-center gap-3">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-primary"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-            <a href="tel:+250000000" class="no-underline text-foreground hover:text-primary transition-colors">+250 000000</a>
+            <a href="tel:+250 787 251 399" class="no-underline text-foreground hover:text-primary transition-colors">+250 787 251 399</a>
           </p>
           <p class="flex items-center gap-3">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-primary"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
-            <a href="mailto:example@gmail.com" class="no-underline text-foreground hover:text-primary transition-colors">example@gmail.com</a>
+            <a href="mailto:yesilaerwanda@gmail.com" class="no-underline text-foreground hover:text-primary transition-colors">yesilaerwanda@gmail.com</a>
           </p>
         </div>
         
@@ -253,7 +255,10 @@ function PageView() {
     }
 
     // If it's the programs & services page and the body is empty or just the default placeholder
-    if (p.slug === "programs-services" && (!p.body || p.body.includes("This is placeholder content"))) {
+    if (
+      p.slug === "programs-services" &&
+      (!p.body || p.body.includes("This is placeholder content"))
+    ) {
       return `
         <h2>Our values</h2>
         <p class="lead text-lg text-muted-foreground">Our work is guided by pan-Africanism, which to us means valuing African institutions, programs, researchers and advocates. We believe this approach will help us create a sustainable program that addresses needs of people with epilepsy on the continent.</p>
@@ -319,7 +324,7 @@ function PageView() {
     if (p.slug === "conferences" && (!p.body || p.body.includes("This is placeholder content"))) {
       return `
         <div class="text-center mb-12">
-          <a href="https://forms.gle/GBVir91Y6YhGuYp98" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center rounded-full bg-foreground px-8 py-4 text-base font-semibold uppercase tracking-wider text-background transition-colors hover:bg-primary shadow-md">
+          <a href="https://docs.google.com/forms/d/e/1FAIpQLSdxM5G_4-N8q1OQO-i1zF5lG-R-99y7QO-2C-T_8-Q-3Q-9-2Q/viewform?usp=pp_url&entry.2057602315=Yes" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center rounded-full bg-foreground px-8 py-4 text-base font-semibold uppercase tracking-wider text-background transition-colors hover:bg-primary shadow-md">
             Click here to evaluate the conference
           </a>
         </div>
@@ -332,11 +337,11 @@ function PageView() {
           <ul class="space-y-3 m-0 list-none p-0">
             <li class="flex items-center gap-2">
               <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-primary"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
-              <a href="https://epilepsyalliance.africasocialwork.net/eaac5-day-one-of-conference-report/" target="_blank" rel="noopener noreferrer" class="font-medium hover:underline">Day 1 Report</a>
+              <a href="" target="_blank" rel="noopener noreferrer" class="font-medium hover:underline">Day 1 Report</a>
             </li>
             <li class="flex items-center gap-2">
               <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-primary"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
-              <a href="https://epilepsyalliance.africasocialwork.net/day-2-report-epilepsy-alliance-africa-conference-2025/" target="_blank" rel="noopener noreferrer" class="font-medium hover:underline">Day 2 Report</a>
+              <a href="" target="_blank" rel="noopener noreferrer" class="font-medium hover:underline">Day 2 Report</a>
             </li>
           </ul>
         </div>
@@ -346,10 +351,10 @@ function PageView() {
         <hr class="my-10 border-border" />
 
         <h2>Feedback</h2>
-        <p>We kindly ask you to provide us feedback USING THIS SHORT ANONYMOUS FORM: <a href="https://forms.gle/GBVir91Y6YhGuYp98" target="_blank" rel="noopener noreferrer">https://forms.gle/GBVir91Y6YhGuYp98</a></p>
+        <p>We kindly ask you to provide us feedback USING THIS SHORT ANONYMOUS FORM: <a href="" target="_blank" rel="noopener noreferrer"></a></p>
 
-        <h2>Invitation to EAAC6</h2>
-        <p>We warmly invite you to the 6th Epilepsy Alliance Africa Conference (EAAC6), which will take place on <strong>16–17 September 2026</strong>. Building on the successes of EAAC5, the next conference will be larger and will continue to unite voices for epilepsy advocacy, innovation, and impact across Africa and globally.</p>
+        <h2>Invitation to ILAE Rwanda 2026 Congress</h2>
+        <p>We warmly invite you to the 6th ILAE Rwanda Congress (ILAE), which will take place on <strong>16–17 September 2026</strong>. Building on the successes of previous congresses, the next conference will be larger and will continue to unite voices for epilepsy advocacy, innovation, and impact across Rwanda and globally.</p>
 
         <h2>5th Conference, 2025</h2>
         <p><strong>17 September (2 hours) and 18 September (4 hours)</strong><br />
@@ -363,7 +368,7 @@ function PageView() {
         </div>
 
         <h2>Aim of the conference</h2>
-        <p>The EAA is a young Africa-wide alliance of epilepsy associations that was formed in December 2019. Each year, we host a conference to bring together people working to defeat epilepsy in the African continent and interested parties from across the world. This year’s conference will be held during the Zebra Stripes Week which is Africa’s homegrown awareness event. Through the 5th online conference, we hope to bring people together to learn about the work that is being done by advocates and professionals, hear from experts and policymakers and more importantly hear stories of resilience and how people with epilepsy and their families are being impacted.</p>
+        <p>The ILAE Rwanda is a young Rwanda-wide organisation that was formed in December 2019. Each year, we host a conference to bring together people working to defeat epilepsy in Rwanda and interested parties from across the world. This year’s conference will be held during the Zebra Stripes Week which is Africa’s homegrown awareness event. Through the 5th online conference, we hope to bring people together to learn about the work that is being done by advocates and professionals, hear from experts and policymakers and more importantly hear stories of resilience and how people with epilepsy and their families are being impacted.</p>
 
         <hr class="my-10 border-border" />
 
@@ -619,7 +624,10 @@ function PageView() {
     }
 
     // If it's the info-forms-videos page and the body is empty or just the default placeholder
-    if (p.slug === "info-forms-videos" && (!p.body || p.body.includes("This is placeholder content"))) {
+    if (
+      p.slug === "info-forms-videos" &&
+      (!p.body || p.body.includes("This is placeholder content"))
+    ) {
       return `
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
           
@@ -779,8 +787,10 @@ function PageView() {
                     "Epilepsy and Autism_Joan Kagema_Kenya",
                     "Epilepsy in Africa_Africa Driven Research_Dr Jacob R. Mugumbate",
                     "Epilepsy Research Challenges & Opportunities_Dr Gams Massi _Cameroon",
-                    "Epilepsy in Africa, health workers’ knowledge in Sierra"
-                  ].map(video => `
+                    "Epilepsy in Africa, health workers’ knowledge in Sierra",
+                  ]
+                    .map(
+                      (video) => `
                     <li>
                       <a href="#" class="flex items-start gap-3 p-3 rounded-lg hover:bg-secondary/50 transition-colors no-underline group text-left">
                         <div class="mt-0.5 shrink-0 bg-primary/10 text-primary p-2 rounded-full group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
@@ -789,7 +799,9 @@ function PageView() {
                         <span class="text-sm font-medium text-foreground group-hover:text-primary transition-colors line-clamp-2 leading-tight">${video}</span>
                       </a>
                     </li>
-                  `).join('')}
+                  `,
+                    )
+                    .join("")}
                 </ul>
               </div>
             </div>
@@ -831,20 +843,20 @@ function PageView() {
 
       {/* Content */}
       <div className="mx-auto max-w-3xl px-6 py-16 md:px-10 md:py-24">
-        <div 
+        <div
           className="prose prose-base md:prose-lg prose-neutral max-w-none text-foreground prose-headings:font-display prose-a:text-primary hover:prose-a:text-primary/80 prose-img:rounded-md"
           dangerouslySetInnerHTML={{ __html: getPageBody(page) }}
         />
         {!getPageBody(page) && (
-          <p className="text-center text-muted-foreground italic">
-            This page is currently empty.
-          </p>
+          <p className="text-center text-muted-foreground italic">This page is currently empty.</p>
         )}
 
         {page.slug === "members" && (
           <div className="mt-20 pt-16 border-t border-border">
             <h2 className="font-display text-3xl mb-2">Application Form for Membership</h2>
-            <p className="text-muted-foreground mb-10">You can also fill in the short form below to apply directly.</p>
+            <p className="text-muted-foreground mb-10">
+              You can also fill in the short form below to apply directly.
+            </p>
             <MembershipForm />
           </div>
         )}
@@ -859,15 +871,15 @@ function PageView() {
             </h1>
             <div className="mt-4 mx-auto h-px w-24 bg-primary" />
           </div>
-          
+
           <div className="grid grid-cols-1 gap-12 sm:grid-cols-2 lg:grid-cols-3">
             {teamMembers.map((member) => (
               <div key={member.id} className="flex flex-col items-center text-center group">
                 <div className="relative mb-6 h-48 w-48 overflow-hidden rounded-full border-4 border-border/50 bg-secondary shadow-md transition-all duration-300 group-hover:border-primary/50 group-hover:shadow-lg">
                   {member.cover ? (
-                    <img 
-                      src={member.cover} 
-                      alt={member.title} 
+                    <img
+                      src={member.cover}
+                      alt={member.title}
                       className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                     />
                   ) : (
@@ -881,15 +893,15 @@ function PageView() {
                   {member.excerpt}
                 </p>
                 {member.body && (
-                  <p className="mt-4 text-sm text-muted-foreground line-clamp-3">
-                    {member.body}
-                  </p>
+                  <p className="mt-4 text-sm text-muted-foreground line-clamp-3">{member.body}</p>
                 )}
               </div>
             ))}
           </div>
           {teamMembers.length === 0 && (
-            <p className="text-center text-muted-foreground">No executive council members have been added yet.</p>
+            <p className="text-center text-muted-foreground">
+              No executive council members have been added yet.
+            </p>
           )}
         </section>
       )}
@@ -901,7 +913,7 @@ function MembershipForm() {
   const [sent, setSent] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
-  
+
   const [form, setForm] = useState({
     contactPerson: "",
     email: "",
@@ -949,7 +961,9 @@ ${form.additionalInfo}
       <div className="rounded-md border border-border bg-background p-10 text-center">
         <p className="eyebrow text-primary">Application received</p>
         <h3 className="mt-3 font-display text-3xl">Thank you.</h3>
-        <p className="mt-3 text-muted-foreground">We have received your membership application and will be in touch soon.</p>
+        <p className="mt-3 text-muted-foreground">
+          We have received your membership application and will be in touch soon.
+        </p>
       </div>
     );
   }
@@ -987,14 +1001,14 @@ ${form.additionalInfo}
           onChange={(v) => setForm({ ...form, whatsapp: v })}
         />
       </div>
-      
+
       <FormField
         label="Name of Association or Group"
         id="associationName"
         value={form.associationName}
         onChange={(v) => setForm({ ...form, associationName: v })}
       />
-      
+
       <div>
         <label htmlFor="summary" className="eyebrow block">
           Summary of activities

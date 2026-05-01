@@ -24,7 +24,13 @@ export const Route = createFileRoute("/admin")({
 });
 
 type NavItem = {
-  to: "/admin" | "/admin/posts" | "/admin/pages" | "/admin/team" | "/admin/gallery" | "/admin/messages";
+  to:
+    | "/admin"
+    | "/admin/posts"
+    | "/admin/pages"
+    | "/admin/team"
+    | "/admin/gallery"
+    | "/admin/messages";
   label: string;
   icon: typeof LayoutDashboard;
   exact?: boolean;
@@ -72,8 +78,8 @@ function AdminLayout() {
         <p className="eyebrow">Access denied</p>
         <h2 className="font-display text-3xl text-foreground">No admin role on this account</h2>
         <p className="max-w-md text-sm text-muted-foreground">
-          Your account is signed in but doesn't have admin privileges. Sign in with an admin account, or
-          create the first admin from the login page.
+          Your account is signed in but doesn't have admin privileges. Sign in with an admin
+          account, or create the first admin from the login page.
         </p>
         <button
           onClick={async () => {
@@ -94,7 +100,9 @@ function AdminLayout() {
   };
 
   const isActive = (to: string, exact?: boolean) =>
-    exact ? location.pathname === to : location.pathname === to || location.pathname.startsWith(to + "/");
+    exact
+      ? location.pathname === to
+      : location.pathname === to || location.pathname.startsWith(to + "/");
 
   const currentLabel = NAV.find((n) => isActive(n.to, n.exact))?.label ?? "Dashboard";
   const initials = (user.email ?? "AD").slice(0, 2).toUpperCase();
@@ -194,7 +202,11 @@ function AdminLayout() {
       <div className="flex min-w-0 flex-1 flex-col">
         <header className="flex items-center justify-between border-b border-border bg-paper px-6 py-4">
           <div className="flex items-center gap-3">
-            <button className="md:hidden" onClick={() => setMobileOpen(true)} aria-label="Open menu">
+            <button
+              className="md:hidden"
+              onClick={() => setMobileOpen(true)}
+              aria-label="Open menu"
+            >
               <Menu className="h-5 w-5" />
             </button>
             <div>

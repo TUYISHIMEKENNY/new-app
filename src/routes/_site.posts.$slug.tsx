@@ -79,18 +79,20 @@ function PostPage() {
 
       <div className="mx-auto max-w-2xl px-6 py-16 md:px-10 md:py-24">
         <div className="space-y-6">
-          {(post.body?.split("\n").filter((p) => p.trim() !== "") || []).map((para: string, i: number) => (
-            <p
-              key={i}
-              className={
-                i === 0
-                  ? "font-display text-2xl leading-snug text-foreground md:text-3xl"
-                  : "text-lg leading-relaxed text-foreground/90"
-              }
-            >
-              {para}
-            </p>
-          ))}
+          {(post.body?.split("\n").filter((p) => p.trim() !== "") || []).map(
+            (para: string, i: number) => (
+              <p
+                key={i}
+                className={
+                  i === 0
+                    ? "font-display text-2xl leading-snug text-foreground md:text-3xl"
+                    : "text-lg leading-relaxed text-foreground/90"
+                }
+              >
+                {para}
+              </p>
+            ),
+          )}
         </div>
 
         <div className="mt-16 border-t border-border pt-8">

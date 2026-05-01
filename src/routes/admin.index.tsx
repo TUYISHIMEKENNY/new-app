@@ -26,7 +26,12 @@ function AdminHome() {
     let active = true;
     (async () => {
       try {
-        const [p, pg, ph, m] = await Promise.all([listPosts(), listPages(), listPhotos(), listMessages()]);
+        const [p, pg, ph, m] = await Promise.all([
+          listPosts(),
+          listPages(),
+          listPhotos(),
+          listMessages(),
+        ]);
         if (!active) return;
         setPosts(p);
         setPages(pg);
@@ -48,8 +53,18 @@ function AdminHome() {
   const draftsPages = pages.length - publishedPages;
 
   const stats = [
-    { label: "Total posts", value: posts.length, sub: `${publishedPosts} published · ${draftsPosts} draft`, icon: FileText },
-    { label: "Total pages", value: pages.length, sub: `${publishedPages} published · ${draftsPages} draft`, icon: File },
+    {
+      label: "Total posts",
+      value: posts.length,
+      sub: `${publishedPosts} published · ${draftsPosts} draft`,
+      icon: FileText,
+    },
+    {
+      label: "Total pages",
+      value: pages.length,
+      sub: `${publishedPages} published · ${draftsPages} draft`,
+      icon: File,
+    },
     { label: "Messages", value: messages.length, sub: `${unread} unread`, icon: Mail },
     { label: "Total photos", value: photos.length, sub: "In gallery", icon: ImageIcon },
   ];
@@ -63,7 +78,9 @@ function AdminHome() {
         <p className="eyebrow">Overview</p>
         <h2 className="mt-3 font-display text-4xl text-foreground">Good morning, editor.</h2>
         <p className="mt-2 max-w-2xl text-sm text-muted-foreground">
-          {loading ? "Loading…" : "A snapshot of the journal, the gallery, and reader correspondence."}
+          {loading
+            ? "Loading…"
+            : "A snapshot of the journal, the gallery, and reader correspondence."}
         </p>
       </div>
 

@@ -15,7 +15,6 @@ export const Route = createFileRoute("/_site/about")({
   }),
 });
 
-
 function About() {
   return (
     <article>
@@ -37,10 +36,16 @@ function About() {
         </aside>
         <div className="space-y-6 text-base leading-relaxed text-muted-foreground lg:col-span-8 lg:text-lg">
           <p>
-            ILAE YES Rwanda, we are dedicated to empowering youth and transforming communities through education, leadership, innovation, and social responsibility. A major focus of our work is supporting people living with epilepsy by raising awareness, fighting stigma, promoting inclusion, and encouraging access to care and support within communities.
+            ILAE YES Rwanda, we are dedicated to empowering youth and transforming communities
+            through education, leadership, innovation, and social responsibility. A major focus of
+            our work is supporting people living with epilepsy by raising awareness, fighting
+            stigma, promoting inclusion, and encouraging access to care and support within
+            communities.
           </p>
           <p>
-            Our commitment is guided by integrity, teamwork, inclusiveness, and excellence. Together with our partners and communities, we strive to uplift lives, restore hope, and create lasting social transformation.
+            Our commitment is guided by integrity, teamwork, inclusiveness, and excellence. Together
+            with our partners and communities, we strive to uplift lives, restore hope, and create
+            lasting social transformation.
           </p>
         </div>
       </section>
@@ -61,7 +66,6 @@ function About() {
           </figure>
         </div>
       </section>
-
 
       {/* Quick facts */}
       <section className="border-t border-border bg-background">

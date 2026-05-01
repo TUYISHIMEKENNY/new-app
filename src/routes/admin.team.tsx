@@ -92,9 +92,7 @@ function AdminTeam() {
         <div>
           <p className="eyebrow">Organization</p>
           <h2 className="mt-3 font-display text-4xl text-foreground">Manage Executive Council</h2>
-          <p className="mt-2 text-sm text-muted-foreground">
-            {members.length} total members
-          </p>
+          <p className="mt-2 text-sm text-muted-foreground">{members.length} total members</p>
         </div>
         <button
           onClick={() => setEditing({ ...empty })}
@@ -134,7 +132,11 @@ function AdminTeam() {
               <tr key={m.id} className="border-b border-border last:border-0 hover:bg-secondary/20">
                 <td className="px-6 py-4 w-20">
                   {m.cover ? (
-                    <img src={m.cover} alt={m.title} className="h-12 w-12 rounded-full object-cover border border-border" />
+                    <img
+                      src={m.cover}
+                      alt={m.title}
+                      className="h-12 w-12 rounded-full object-cover border border-border"
+                    />
                   ) : (
                     <div className="h-12 w-12 rounded-full bg-secondary flex items-center justify-center border border-border text-muted-foreground">
                       <Users className="h-5 w-5" />

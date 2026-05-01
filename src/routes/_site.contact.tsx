@@ -65,8 +65,10 @@ function Contact() {
             <p className="mt-3 flex items-start gap-3 text-base text-foreground">
               <MapPin className="mt-1 h-5 w-5 shrink-0 text-primary" />
               <span>
-                Rwanda<br />
-                KIGALI<br />
+                Rwanda
+                <br />
+                KIGALI
+                <br />
                 ADDRESS
               </span>
             </p>
@@ -74,7 +76,9 @@ function Contact() {
           <div>
             <p className="eyebrow">Hours</p>
             <p className="mt-3 text-base text-foreground">
-              Monday — Friday<br />09:00 — 17:00 CET
+              Monday — Friday
+              <br />
+              09:00 — 17:00 CET
             </p>
           </div>
         </aside>
