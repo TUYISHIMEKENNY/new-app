@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Menu, X, ChevronDown, Globe, MessageCircle, Mail } from "lucide-react";
 import logo from "@/assets/logo.jpeg";
 import {
@@ -36,9 +36,27 @@ const resourceLinks = [
 
 export function Nav() {
   const [open, setOpen] = useState(false);
+  const [hidden, setHidden] = useState(false);
+  const [lastScrollY, setLastScrollY] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      // Hide if scrolling down past 150px, show if scrolling up
+      if (currentScrollY > lastScrollY && currentScrollY > 150) {
+        setHidden(true);
+      } else {
+        setHidden(false);
+      }
+      setLastScrollY(currentScrollY);
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [lastScrollY]);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-border bg-background/95 backdrop-blur-md shadow-sm">
+    <header className={`sticky top-0 z-50 border-b border-border bg-background/95 backdrop-blur-md shadow-sm transition-transform duration-300 ${hidden ? '-translate-y-full' : 'translate-y-0'}`}>
       {/* Top Banner */}
       <div className="bg-primary text-primary-foreground py-2 px-6 md:px-10 text-[0.7rem] sm:text-xs font-semibold tracking-wide">
         <div className="mx-auto max-w-7xl flex flex-col sm:flex-row justify-between items-center gap-3 text-center sm:text-left">
@@ -47,13 +65,13 @@ export function Nav() {
             <span>47 members in 31 African countries</span>
           </div>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-6">
-            <a href="https://wa.me/250784115806" target="_blank" rel="noreferrer" className="flex items-center gap-2 hover:text-primary-foreground/80 transition-colors">
+            <a href="https://wa.me/254705001510" target="_blank" rel="noreferrer" className="flex items-center gap-2 hover:text-primary-foreground/80 transition-colors">
               <MessageCircle className="h-3.5 w-3.5" />
-              <span>+250784115806 <span className="opacity-75 font-normal ml-1">Join our WhatsApp Hub</span></span>
+              <span>+254705001510 <span className="opacity-75 font-normal ml-1">Join our WhatsApp Hub</span></span>
             </a>
             <a href="mailto:epilepsyallianceafrica@gmail.com" className="flex items-center gap-2 hover:text-primary-foreground/80 transition-colors">
               <Mail className="h-3.5 w-3.5" />
-              <span>epilepsyallianceafrica@gmail.com <span className="opacity-75 font-normal ml-1">Send us an Email</span></span>
+              <span>@gmail.com <span className="opacity-75 font-normal ml-1">Send us an Email</span></span>
             </a>
           </div>
         </div>
