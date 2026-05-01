@@ -20,6 +20,7 @@ import { Route as AdminMessagesRouteImport } from './routes/admin.messages'
 import { Route as AdminLoginRouteImport } from './routes/admin.login'
 import { Route as AdminGalleryRouteImport } from './routes/admin.gallery'
 import { Route as SiteGalleryRouteImport } from './routes/_site.gallery'
+import { Route as SiteDonateDetailsRouteImport } from './routes/_site.donate-details'
 import { Route as SiteDonateRouteImport } from './routes/_site.donate'
 import { Route as SiteContactRouteImport } from './routes/_site.contact'
 import { Route as SiteAboutRouteImport } from './routes/_site.about'
@@ -81,6 +82,11 @@ const SiteGalleryRoute = SiteGalleryRouteImport.update({
   path: '/gallery',
   getParentRoute: () => SiteRoute,
 } as any)
+const SiteDonateDetailsRoute = SiteDonateDetailsRouteImport.update({
+  id: '/donate-details',
+  path: '/donate-details',
+  getParentRoute: () => SiteRoute,
+} as any)
 const SiteDonateRoute = SiteDonateRouteImport.update({
   id: '/donate',
   path: '/donate',
@@ -118,6 +124,7 @@ export interface FileRoutesByFullPath {
   '/about': typeof SiteAboutRoute
   '/contact': typeof SiteContactRoute
   '/donate': typeof SiteDonateRoute
+  '/donate-details': typeof SiteDonateDetailsRoute
   '/gallery': typeof SiteGalleryRoute
   '/admin/gallery': typeof AdminGalleryRoute
   '/admin/login': typeof AdminLoginRoute
@@ -134,6 +141,7 @@ export interface FileRoutesByTo {
   '/about': typeof SiteAboutRoute
   '/contact': typeof SiteContactRoute
   '/donate': typeof SiteDonateRoute
+  '/donate-details': typeof SiteDonateDetailsRoute
   '/gallery': typeof SiteGalleryRoute
   '/admin/gallery': typeof AdminGalleryRoute
   '/admin/login': typeof AdminLoginRoute
@@ -154,6 +162,7 @@ export interface FileRoutesById {
   '/_site/about': typeof SiteAboutRoute
   '/_site/contact': typeof SiteContactRoute
   '/_site/donate': typeof SiteDonateRoute
+  '/_site/donate-details': typeof SiteDonateDetailsRoute
   '/_site/gallery': typeof SiteGalleryRoute
   '/admin/gallery': typeof AdminGalleryRoute
   '/admin/login': typeof AdminLoginRoute
@@ -175,6 +184,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/contact'
     | '/donate'
+    | '/donate-details'
     | '/gallery'
     | '/admin/gallery'
     | '/admin/login'
@@ -191,6 +201,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/contact'
     | '/donate'
+    | '/donate-details'
     | '/gallery'
     | '/admin/gallery'
     | '/admin/login'
@@ -210,6 +221,7 @@ export interface FileRouteTypes {
     | '/_site/about'
     | '/_site/contact'
     | '/_site/donate'
+    | '/_site/donate-details'
     | '/_site/gallery'
     | '/admin/gallery'
     | '/admin/login'
@@ -308,6 +320,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SiteGalleryRouteImport
       parentRoute: typeof SiteRoute
     }
+    '/_site/donate-details': {
+      id: '/_site/donate-details'
+      path: '/donate-details'
+      fullPath: '/donate-details'
+      preLoaderRoute: typeof SiteDonateDetailsRouteImport
+      parentRoute: typeof SiteRoute
+    }
     '/_site/donate': {
       id: '/_site/donate'
       path: '/donate'
@@ -357,6 +376,7 @@ interface SiteRouteChildren {
   SiteAboutRoute: typeof SiteAboutRoute
   SiteContactRoute: typeof SiteContactRoute
   SiteDonateRoute: typeof SiteDonateRoute
+  SiteDonateDetailsRoute: typeof SiteDonateDetailsRoute
   SiteGalleryRoute: typeof SiteGalleryRoute
   SiteIndexRoute: typeof SiteIndexRoute
   SitePagesSlugRoute: typeof SitePagesSlugRoute
@@ -368,6 +388,7 @@ const SiteRouteChildren: SiteRouteChildren = {
   SiteAboutRoute: SiteAboutRoute,
   SiteContactRoute: SiteContactRoute,
   SiteDonateRoute: SiteDonateRoute,
+  SiteDonateDetailsRoute: SiteDonateDetailsRoute,
   SiteGalleryRoute: SiteGalleryRoute,
   SiteIndexRoute: SiteIndexRoute,
   SitePagesSlugRoute: SitePagesSlugRoute,
