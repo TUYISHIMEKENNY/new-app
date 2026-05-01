@@ -66,12 +66,12 @@ export function Nav() {
           </div>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-6">
             <a href="https://wa.me/254705001510" target="_blank" rel="noreferrer" className="flex items-center gap-2 hover:text-primary-foreground/80 transition-colors">
-              <MessageCircle className="h-3.5 w-3.5" />
-              <span>+254705001510 <span className="opacity-75 font-normal ml-1">Join our WhatsApp Hub</span></span>
+              <MessageCircle className="h-3.5 w-3.5 shrink-0" />
+              <span className="truncate max-w-[200px] sm:max-w-none">+254705001510 <span className="opacity-75 font-normal ml-1 hidden lg:inline">Join our WhatsApp Hub</span></span>
             </a>
             <a href="mailto:epilepsyallianceafrica@gmail.com" className="flex items-center gap-2 hover:text-primary-foreground/80 transition-colors">
-              <Mail className="h-3.5 w-3.5" />
-              <span>@gmail.com <span className="opacity-75 font-normal ml-1">Send us an Email</span></span>
+              <Mail className="h-3.5 w-3.5 shrink-0" />
+              <span className="truncate max-w-[200px] sm:max-w-none">epilepsyallianceafrica@gmail.com <span className="opacity-75 font-normal ml-1 hidden lg:inline">Send us an Email</span></span>
             </a>
           </div>
         </div>
@@ -82,15 +82,15 @@ export function Nav() {
         <Link to="/" className="flex items-center gap-3" aria-label="ILAE Youth Nurse Rwanda home">
           <img
             src={logo}
-            alt="ILAE Youth Nurse Rwanda logo"
-            className="h-20 w-20 sm:h-24 sm:w-24 rounded-full object-cover border-2 border-primary/10 shadow-sm"
+            alt="Epilepsy Alliance Africa logo"
+            className="h-10 w-10 md:h-12 md:w-12 rounded-full object-cover border-2 border-primary/10 shadow-sm shrink-0"
           />
-          <span className="text-xl sm:text-2xl font-black tracking-tight font-display hidden sm:block">
+          <span className="text-base md:text-lg font-black tracking-tight font-display hidden sm:block whitespace-nowrap">
             EPILEPSY ALLIANCE AFRICA
           </span>
         </Link>
 
-        <nav className="hidden items-center gap-8 md:flex">
+        <nav className="hidden items-center gap-4 lg:gap-6 xl:gap-8 md:flex">
           {mainLinks.map((l) => (
             <Link
               key={l.to}

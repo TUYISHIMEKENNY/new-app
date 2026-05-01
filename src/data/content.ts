@@ -1,10 +1,10 @@
-import walk from "@/assets/event-walk.jpg";
-import gala from "@/assets/event-gala.jpg";
-import clinic from "@/assets/event-clinic.jpg";
-import school from "@/assets/event-school.jpg";
-import volunteer from "@/assets/event-volunteer.jpg";
-import research from "@/assets/event-research.jpg";
-import landmark from "@/assets/event-landmark.jpg";
+import walk from "@/assets/event 1.jpeg";
+import gala from "@/assets/events 2.jpeg";
+import clinic from "@/assets/event 3.jpeg";
+import school from "@/assets/event 4.jpeg";
+import volunteer from "@/assets/event 5.jpeg";
+import research from "@/assets/event 6.jpeg";
+import landmark from "@/assets/event 7.jpeg";
 import community from "@/assets/community.jpg";
 import event1 from "@/assets/event 1.jpeg";
 import event2 from "@/assets/events 2.jpeg";

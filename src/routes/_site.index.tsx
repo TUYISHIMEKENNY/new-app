@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowUpRight, ArrowRight } from "lucide-react";
-import hero from "@/assets/hero.jpg";
+import hero from "@/assets/hero.jpeg";
 import science from "@/assets/science.jpg";
 import { facts } from "@/data/content";
 import sportEvent from "@/assets/sport-event.jpeg";
@@ -40,15 +40,13 @@ function Home() {
         <div className="mx-auto grid max-w-7xl grid-cols-1 gap-0 px-6 md:px-10 lg:grid-cols-12">
           <div className="flex flex-col justify-between py-16 lg:col-span-6 lg:py-28 lg:pr-12">
             <div>
-              <p className="eyebrow">Issue 01 · Spring 2025</p>
+              <p className="eyebrow">Issue 01 · Spring 2026</p>
               <h1 className="mt-8 font-display text-5xl leading-[1.05] tracking-tight text-foreground md:text-6xl lg:text-7xl">
-                Changing the conversation around{" "}
-                <em className="font-display italic text-primary">epilepsy.</em>
+                Empowering the next generation of <em className="font-display italic text-primary">epilepsy care.</em>
               </h1>
               <p className="mt-8 max-w-md text-lg leading-relaxed text-muted-foreground">
-                Fifty million people live with epilepsy worldwide. ILAE YOUTH NURSE RWANDA  is an
-                independent initiative dedicated to research, education, and the
-                quiet work of dismantling stigma — one story at a time.
+                The Young Epilepsy Section (YES) of the ILAE is a worldwide organization of young people who are in the early stages of a career focused on the care of people with epilepsy, and/or epilepsy research.
+                By observing the high prevalence of epilepsy, new epilepsy diagnoses, and limited access to care due to the shortage of healthcare professionals in Rwanda.
               </p>
             </div>
 
@@ -72,8 +70,8 @@ function Home() {
 
           <div className="relative lg:col-span-6">
             <div className="relative aspect-[4/5] overflow-hidden lg:aspect-auto lg:h-full">
-              . <img
-                src={sportEvent}
+              <img
+                src={hero}
                 // alt="Hands cupping a sprig of lavender, the international color of epilepsy awareness."
                 alt="Community members gathering for a Brain Week movement event in Kigali, Rwanda."
                 className="h-full w-full object-cover"
