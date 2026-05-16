@@ -98,7 +98,7 @@ export async function getPageBySlug(slug: string): Promise<AdminPost | null> {
     .eq("slug", slug)
     .single();
   if (error) {
-    if (error.code === 'PGRST116') return null; // Not found
+    if (error.code === "PGRST116") return null; // Not found
     throw error;
   }
   return {
@@ -191,7 +191,6 @@ export async function uploadPostCover(file: File): Promise<string> {
   const { data: pub } = supabase.storage.from("gallery").getPublicUrl(path);
   return pub.publicUrl;
 }
-
 
 // ---------- Photos ----------
 export async function listPhotos(): Promise<AdminPhoto[]> {

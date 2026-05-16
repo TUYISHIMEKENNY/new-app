@@ -57,7 +57,8 @@ function Contact() {
               href="mailto:hello@lumen.org"
               className="mt-3 flex items-center gap-3 font-display text-2xl text-foreground hover:text-primary"
             >
-              <Mail className="h-5 w-5" />yesilaerwanda@gmail.com.org
+              <Mail className="h-5 w-5" />
+              yesilaerwanda@gmail.com.org
             </a>
           </div>
           <div>

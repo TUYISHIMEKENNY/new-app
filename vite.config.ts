@@ -6,12 +6,7 @@ import tailwindcss from "@tailwindcss/vite";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [
-    react(),
-    TanStackRouterVite(),
-    tsconfigPaths(),
-    tailwindcss(),
-  ],
+  plugins: [react(), TanStackRouterVite(), tsconfigPaths(), tailwindcss()],
   resolve: {
     alias: {
       "@": "/src",

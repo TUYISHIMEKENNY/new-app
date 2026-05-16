@@ -22,7 +22,7 @@ function About() {
         <div className="mx-auto max-w-5xl px-6 py-20 md:px-10 md:py-28">
           <p className="eyebrow">About ILAE YOUTH NURSE RWANDA </p>
           <h1 className="mt-6 font-display text-5xl leading-[1.05] text-foreground md:text-7xl">
-           No person life is limited by epilepsy or neurological diseases
+            No person life is limited by epilepsy or neurological diseases
             <em className="font-display italic text-primary"></em>
           </h1>
         </div>

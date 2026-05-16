@@ -56,7 +56,9 @@ export function Nav() {
   }, [lastScrollY]);
 
   return (
-    <header className={`sticky top-0 z-50 border-b border-border bg-background/95 backdrop-blur-md shadow-sm transition-transform duration-300 ${hidden ? '-translate-y-full' : 'translate-y-0'}`}>
+    <header
+      className={`sticky top-0 z-50 border-b border-border bg-background/95 backdrop-blur-md shadow-sm transition-transform duration-300 ${hidden ? "-translate-y-full" : "translate-y-0"}`}
+    >
       {/* Top Banner */}
       <div className="bg-primary text-primary-foreground py-2 px-6 md:px-10 text-[0.7rem] sm:text-xs font-semibold tracking-wide">
         <div className="mx-auto max-w-7xl flex flex-col sm:flex-row justify-between items-center gap-3 text-center sm:text-left">
@@ -65,13 +67,31 @@ export function Nav() {
             <span>47 members in 31 African countries</span>
           </div>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-6">
-            <a href="https://wa.me/+250787251399" target="_blank" rel="noreferrer" className="flex items-center gap-2 hover:text-primary-foreground/80 transition-colors">
+            <a
+              href="https://wa.me/+250787251399"
+              target="_blank"
+              rel="noreferrer"
+              className="flex items-center gap-2 hover:text-primary-foreground/80 transition-colors"
+            >
               <MessageCircle className="h-3.5 w-3.5 shrink-0" />
-              <span className="truncate max-w-[200px] sm:max-w-none">+250 787 251 399<span className="opacity-75 font-normal ml-1 hidden lg:inline">Join our WhatsApp Hub</span></span>
+              <span className="truncate max-w-[200px] sm:max-w-none">
+                +250 787 251 399
+                <span className="opacity-75 font-normal ml-1 hidden lg:inline">
+                  Join our WhatsApp Hub
+                </span>
+              </span>
             </a>
-            <a href="mailto:yesilaerwanda@gmail.com" className="flex items-center gap-2 hover:text-primary-foreground/80 transition-colors">
+            <a
+              href="mailto:yesilaerwanda@gmail.com"
+              className="flex items-center gap-2 hover:text-primary-foreground/80 transition-colors"
+            >
               <Mail className="h-3.5 w-3.5 shrink-0" />
-              <span className="truncate max-w-[200px] sm:max-w-none">yesilaerwanda@gmail.com <span className="opacity-75 font-normal ml-1 hidden lg:inline">Send us an Email</span></span>
+              <span className="truncate max-w-[200px] sm:max-w-none">
+                yesilaerwanda@gmail.com{" "}
+                <span className="opacity-75 font-normal ml-1 hidden lg:inline">
+                  Send us an Email
+                </span>
+              </span>
             </a>
           </div>
         </div>
@@ -86,7 +106,7 @@ export function Nav() {
             className="h-10 w-10 md:h-12 md:w-12 rounded-full object-cover border-2 border-primary/10 shadow-sm shrink-0"
           />
           <span className="text-base md:text-lg font-black tracking-tight font-display hidden sm:block whitespace-nowrap">
-            ILAE YES Rwanda 
+            ILAE YES Rwanda
           </span>
         </Link>
 
@@ -102,14 +122,21 @@ export function Nav() {
               {l.label}
             </Link>
           ))}
-          
+
           <DropdownMenu>
             <DropdownMenuTrigger className="flex items-center gap-1 text-sm text-foreground/80 transition-colors hover:text-primary outline-none">
               Resources <ChevronDown className="h-4 w-4 opacity-50" />
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="w-56 bg-background/95 backdrop-blur-md border-border">
+            <DropdownMenuContent
+              align="end"
+              className="w-56 bg-background/95 backdrop-blur-md border-border"
+            >
               {resourceLinks.map((r) => (
-                <DropdownMenuItem key={r.to} asChild className="cursor-pointer hover:bg-muted focus:bg-muted">
+                <DropdownMenuItem
+                  key={r.to}
+                  asChild
+                  className="cursor-pointer hover:bg-muted focus:bg-muted"
+                >
                   <Link to={r.to} className="w-full">
                     {r.label}
                   </Link>
@@ -129,11 +156,7 @@ export function Nav() {
           >
             Donate
           </Link>
-          <button
-            className="md:hidden"
-            onClick={() => setOpen(!open)}
-            aria-label="Toggle menu"
-          >
+          <button className="md:hidden" onClick={() => setOpen(!open)} aria-label="Toggle menu">
             {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
           </button>
         </div>
@@ -178,7 +201,9 @@ export function Nav() {
               Donate
             </Link>
             <div className="pt-6 border-t border-border mt-4 flex items-center justify-between">
-              <span className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">Theme</span>
+              <span className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">
+                Theme
+              </span>
               <ThemeToggle />
             </div>
           </nav>

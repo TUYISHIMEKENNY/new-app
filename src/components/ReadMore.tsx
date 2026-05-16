@@ -17,29 +17,33 @@ export function ReadMore({ children, lines = 3, className = "" }: ReadMoreProps)
         // Temporarily remove line-clamp to get full height
         const isCurrentlyExpanded = isExpanded;
         if (!isCurrentlyExpanded) {
-           // We can check if scrollHeight > clientHeight when clamped
-           setIsTruncated(contentRef.current.scrollHeight > contentRef.current.clientHeight);
+          // We can check if scrollHeight > clientHeight when clamped
+          setIsTruncated(contentRef.current.scrollHeight > contentRef.current.clientHeight);
         }
       }
     };
 
     checkTruncation();
     // Add resize listener to recheck when window resizes
-    window.addEventListener('resize', checkTruncation);
-    return () => window.removeEventListener('resize', checkTruncation);
+    window.addEventListener("resize", checkTruncation);
+    return () => window.removeEventListener("resize", checkTruncation);
   }, [children, isExpanded]);
 
   return (
     <div className={className}>
-      <div 
+      <div
         ref={contentRef}
-        className={`transition-all duration-300 ease-in-out ${!isExpanded ? 'overflow-hidden' : ''}`}
-        style={!isExpanded ? { 
-          display: '-webkit-box', 
-          WebkitLineClamp: lines, 
-          WebkitBoxOrient: 'vertical', 
-          overflow: 'hidden' 
-        } : {}}
+        className={`transition-all duration-300 ease-in-out ${!isExpanded ? "overflow-hidden" : ""}`}
+        style={
+          !isExpanded
+            ? {
+                display: "-webkit-box",
+                WebkitLineClamp: lines,
+                WebkitBoxOrient: "vertical",
+                overflow: "hidden",
+              }
+            : {}
+        }
       >
         {children}
       </div>
