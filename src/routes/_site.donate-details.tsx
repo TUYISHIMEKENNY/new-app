@@ -12,7 +12,7 @@ export const Route = createFileRoute("/_site/donate-details")({
   validateSearch: searchSchema,
   component: DonateDetails,
   head: () => ({
-    meta: [{ title: "Complete Donation — Epilepsy Alliance Africa" }],
+    meta: [{ title: "Complete Donation — ILAE YES RWANDA" }],
   }),
 });
 

@@ -29,8 +29,6 @@ const resourceLinks = [
   { to: "/pages/webinars", label: "Webinars" },
   { to: "/pages/research", label: "Research" },
   { to: "/pages/tele-health", label: "Tele-Health" },
-  { to: "/pages/leaders-section", label: "Leader's Section" },
-  { to: "/pages/discussion-forum", label: "Discussion Forum" },
   { to: "/pages/newsletter", label: "Newsletter" },
 ];
 
@@ -63,8 +61,7 @@ export function Nav() {
       <div className="bg-primary text-primary-foreground py-2 px-6 md:px-10 text-[0.7rem] sm:text-xs font-semibold tracking-wide">
         <div className="mx-auto max-w-7xl flex flex-col sm:flex-row justify-between items-center gap-3 text-center sm:text-left">
           <div className="flex items-center justify-center gap-2 bg-primary-foreground/10 px-3 py-1 rounded-full">
-            <Globe className="h-3.5 w-3.5" />
-            <span>47 members in 31 African countries</span>
+            <Globe className="h-3.5 w-3.5" />ILAE YES RWANDA
           </div>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-6">
             <a

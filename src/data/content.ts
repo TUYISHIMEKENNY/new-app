@@ -152,7 +152,7 @@ export const events = [
 
 export const facts = [
   { stat: "50M", label: "People living with epilepsy worldwide" },
-  { stat: "70%", label: "Could become seizure-free with proper treatment" },
+  { stat: "42+", label: "People living with epilepsy in Rwanda" },
+  { stat: "25M", label: "People living with epilepsy in Africa" },
   { stat: "1 in 26", label: "Will develop epilepsy in their lifetime" },
-  { stat: "40+", label: "Distinct epilepsy syndromes identified" },
 ];

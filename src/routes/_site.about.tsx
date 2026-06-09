@@ -36,11 +36,10 @@ function About() {
         </aside>
         <div className="space-y-6 text-base leading-relaxed text-muted-foreground lg:col-span-8 lg:text-lg">
           <p>
-            ILAE YES Rwanda, we are dedicated to empowering youth and transforming communities
-            through education, leadership, innovation, and social responsibility. A major focus of
-            our work is supporting people living with epilepsy by raising awareness, fighting
-            stigma, promoting inclusion, and encouraging access to care and support within
-            communities.
+            Since 2020, ILAE YES Rwanda has brought together teachers and students in a shared mission to fight epilepsy through education, awareness, and community engagement. The initiative was established to increase understanding of epilepsy, reduce stigma and discrimination, and create a supportive environment for individuals living with the condition, especially students. Through advocacy campaigns, educational activities, and collaboration with schools and communities, members have worked to ensure that people with epilepsy are treated with dignity, respect, and inclusion.
+In 2024, nurses joined the initiative, strengthening the movement by adding healthcare expertise and expanding its capacity to support people affected by epilepsy. The collaboration between teachers, students, and nurses has created a multidisciplinary team committed to improving epilepsy awareness, promoting accurate knowledge about seizure management, and encouraging early access to medical care. Together, they work to support, accompany, and advocate for students living with epilepsy, helping them overcome challenges, succeed in their education, and fully participate in school and community life. Through this united effort, ILAE YES Rwanda continues to build a more informed, inclusive, and supportive society for people living with epilepsy.
+
+
           </p>
           <p>
             Our commitment is guided by integrity, teamwork, inclusiveness, and excellence. Together

@@ -207,51 +207,7 @@ function PageView() {
 
     // If it's the stories page and the body is empty or just the default placeholder
     if (p.slug === "stories" && (!p.body || p.body.includes("This is placeholder content"))) {
-      return `
-        <div class="mb-10 flex gap-4 border-b border-border pb-4 font-semibold text-sm uppercase tracking-wider text-muted-foreground overflow-x-auto">
-          <a href="#why-stories" class="hover:text-primary no-underline transition-colors whitespace-nowrap">Why stories</a>
-          <a href="#format" class="hover:text-primary no-underline transition-colors whitespace-nowrap">Format of stories</a>
-          <a href="#submission" class="hover:text-primary no-underline transition-colors whitespace-nowrap">Submission</a>
-          <a href="#" class="hover:text-primary no-underline transition-colors whitespace-nowrap">2024 stories</a>
-        </div>
-
-        <p class="lead text-xl text-muted-foreground">This page contains stories of living with or caring for a person with epilepsy and is updated continuously.</p>
-        
-        <p><strong>Bigger and better.</strong> Stories depict a journey and these journeys of lived experience have a positive effect on others, be it persons with epilepsy, carers and the world at large.</p>
-
-        <h2 id="why-stories">Why stories</h2>
-        <p>A story stimulates the brain, and can change the way we act in our lives. Stories motivate, they make us more empathic and influence social behavior. Epilepsy is a condition that is misunderstood and we believe it is through these stories we will be able to better the lives of persons with epilepsy and eventually defeat epilepsy, the challenges and social issues that come along with it.</p>
-        <p>It is through our stories we are able to show how far we are able to go with epilepsy, be it with education, employment, marriage etc.</p>
-
-        <blockquote class="border-l-4 border-primary pl-6 my-8 italic text-lg text-foreground/80">
-          "Debunk the myths surrounding epilepsy today. Motivate someone with epilepsy, a career, remind them that life is full of possibilities, most of all that we have epilepsy but epilepsy does not have us!"
-        </blockquote>
-
-        <h2 id="format">Format of stories</h2>
-        <p>Those submitting stories can use any of the following formats:</p>
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 my-8 text-center text-sm font-semibold uppercase tracking-wider text-muted-foreground">
-          <div class="border border-border rounded-md p-4 bg-secondary/30">Video recording</div>
-          <div class="border border-border rounded-md p-4 bg-secondary/30">Audio recording (Voice note)</div>
-          <div class="border border-border rounded-md p-4 bg-secondary/30">Handwritten story</div>
-          <div class="border border-border rounded-md p-4 bg-secondary/30">Art</div>
-        </div>
-
-        <hr class="my-10 border-border" />
-
-        <h2 id="submission">Submission</h2>
-        <div class="flex flex-col gap-3">
-          <p class="flex items-center gap-3">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-primary"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-            <a href="tel:+250 787 251 399" class="no-underline text-foreground hover:text-primary transition-colors">+250 787 251 399</a>
-          </p>
-          <p class="flex items-center gap-3">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-primary"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
-            <a href="mailto:yesilaerwanda@gmail.com" class="no-underline text-foreground hover:text-primary transition-colors">yesilaerwanda@gmail.com</a>
-          </p>
-        </div>
-        
-        <p class="mt-8">More details available on our website here: <a href="#">link</a></p>
-      `;
+      return "";
     }
 
     // If it's the programs & services page and the body is empty or just the default placeholder

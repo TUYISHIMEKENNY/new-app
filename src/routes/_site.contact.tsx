@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import { Mail, MapPin, Send } from "lucide-react";
+import { Mail, MapPin, Phone, Send } from "lucide-react";
 import { submitMessage } from "@/lib/admin-store";
 
 export const Route = createFileRoute("/_site/contact")({
@@ -60,6 +60,25 @@ function Contact() {
               <Mail className="h-5 w-5" />
               yesilaerwanda@gmail.com.org
             </a>
+          </div>
+          <div>
+            <p className="eyebrow">Phone</p>
+            <div className="mt-3 flex flex-col gap-2">
+              <a
+                href="tel:+447984880322"
+                className="flex items-center gap-3 text-base text-foreground hover:text-primary transition-colors"
+              >
+                <Phone className="h-5 w-5 shrink-0 text-primary" />
+                +44 7984 880322
+              </a>
+              <a
+                href="tel:+250785457841"
+                className="flex items-center gap-3 text-base text-foreground hover:text-primary transition-colors"
+              >
+                <Phone className="h-5 w-5 shrink-0 text-primary" />
+                +250 785 457 841
+              </a>
+            </div>
           </div>
           <div>
             <p className="eyebrow">Studio</p>

@@ -41,10 +41,10 @@ function Home() {
         <div className="mx-auto grid max-w-7xl grid-cols-1 gap-0 px-6 md:px-10 lg:grid-cols-12">
           <div className="flex flex-col justify-between py-16 lg:col-span-6 lg:py-28 lg:pr-12">
             <div>
-              <p className="eyebrow">Issue 01 · Spring 2026</p>
+              <p className="eyebrow">ILAE YES RWANDA</p>
               <h1 className="mt-8 font-display text-5xl leading-[1.05] tracking-tight text-foreground md:text-6xl lg:text-7xl">
-                Empowering the next generation of{" "}
-                <em className="font-display italic text-primary">epilepsy care.</em>
+                Empowering primary care nurse education programme prioritise social care education{" "}
+                <em className="font-display italic text-primary"> epilepsy policies.</em>
               </h1>
               <ReadMore
                 lines={3}
