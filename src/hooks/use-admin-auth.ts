@@ -1,67 +1,89 @@
 import { useEffect, useState } from "react";
-import { supabase } from "@/integrations/supabase/client";
-import type { Session, User } from "@supabase/supabase-js";
 
 export type AdminAuthState = {
   isReady: boolean;
-  session: Session | null;
-  user: User | null;
+  user: { email: string } | null;
   isAdmin: boolean;
 };
 
+const AUTH_KEY = "lumen_admin_user";
+const CREDENTIALS_KEY = "lumen_admin_credentials";
+const AUTH_EVENT = "lumen_auth_change";
+
 export function useAdminAuth(): AdminAuthState {
   const [isReady, setIsReady] = useState(false);
-  const [session, setSession] = useState<Session | null>(null);
-  const [isAdmin, setIsAdmin] = useState(false);
+  const [user, setUser] = useState<{ email: string } | null>(null);
 
   useEffect(() => {
-    let active = true;
-
-    // 1. Listen FIRST so we don't miss events.
-    const { data: sub } = supabase.auth.onAuthStateChange((_event, s) => {
-      if (!active) return;
-      setSession(s);
-      // Defer the role check — never await inside the callback.
-      if (s?.user) {
-        setTimeout(() => {
-          void checkAdmin(s.user.id);
-        }, 0);
+    const checkAuth = () => {
+      const stored = localStorage.getItem(AUTH_KEY);
+      if (stored) {
+        try {
+          setUser(JSON.parse(stored));
+        } catch (e) {
+          localStorage.removeItem(AUTH_KEY);
+          setUser(null);
+        }
       } else {
-        setIsAdmin(false);
-      }
-    });
-
-    // 2. Then restore the existing session.
-    void supabase.auth.getSession().then(async ({ data }) => {
-      if (!active) return;
-      setSession(data.session);
-      if (data.session?.user) {
-        await checkAdmin(data.session.user.id);
+        setUser(null);
       }
       setIsReady(true);
-    });
+    };
 
-    async function checkAdmin(userId: string) {
-      const { data, error } = await supabase
-        .from("user_roles")
-        .select("role")
-        .eq("user_id", userId)
-        .eq("role", "admin")
-        .maybeSingle();
-      if (!active) return;
-      setIsAdmin(!error && !!data);
-    }
-
+    checkAuth();
+    window.addEventListener(AUTH_EVENT, checkAuth);
+    window.addEventListener("storage", checkAuth);
     return () => {
-      active = false;
-      sub.subscription.unsubscribe();
+      window.removeEventListener(AUTH_EVENT, checkAuth);
+      window.removeEventListener("storage", checkAuth);
     };
   }, []);
 
   return {
     isReady,
-    session,
-    user: session?.user ?? null,
-    isAdmin,
+    user,
+    isAdmin: !!user,
   };
+}
+
+export function loginAdmin(email: string) {
+  localStorage.setItem(AUTH_KEY, JSON.stringify({ email }));
+  window.dispatchEvent(new Event(AUTH_EVENT));
+}
+
+export function logoutAdmin() {
+  localStorage.removeItem(AUTH_KEY);
+  window.dispatchEvent(new Event(AUTH_EVENT));
+}
+
+export async function signUpAdmin(email: string, password: string): Promise<void> {
+  // Simulate network latency
+  await new Promise((resolve) => setTimeout(resolve, 500));
+  const normalizedEmail = email.trim().toLowerCase();
+  
+  const usersRaw = localStorage.getItem(CREDENTIALS_KEY);
+  const users: Record<string, string> = usersRaw ? JSON.parse(usersRaw) : {};
+  
+  if (users[normalizedEmail]) {
+    throw new Error("User already exists.");
+  }
+  
+  users[normalizedEmail] = password;
+  localStorage.setItem(CREDENTIALS_KEY, JSON.stringify(users));
+  loginAdmin(normalizedEmail);
+}
+
+export async function signInAdmin(email: string, password: string): Promise<void> {
+  // Simulate network latency
+  await new Promise((resolve) => setTimeout(resolve, 500));
+  const normalizedEmail = email.trim().toLowerCase();
+  
+  const usersRaw = localStorage.getItem(CREDENTIALS_KEY);
+  const users: Record<string, string> = usersRaw ? JSON.parse(usersRaw) : {};
+  
+  if (!users[normalizedEmail] || users[normalizedEmail] !== password) {
+    throw new Error("Invalid email or password.");
+  }
+  
+  loginAdmin(normalizedEmail);
 }

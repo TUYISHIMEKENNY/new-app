@@ -10,7 +10,6 @@ import {
   Heading2,
   Heading3,
 } from "lucide-react";
-import { supabase } from "@/integrations/supabase/client";
 
 interface RichTextEditorProps {
   value: string;
@@ -39,30 +38,16 @@ export function RichTextEditor({ value, onChange }: RichTextEditorProps) {
     },
   });
 
-  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file || !editor) return;
 
     try {
-      // 1. Upload to Supabase gallery bucket
-      const fileExt = file.name.split(".").pop();
-      const fileName = `${Math.random()}.${fileExt}`;
-      const filePath = `webinars/${fileName}`;
-
-      const { error: uploadError } = await supabase.storage.from("gallery").upload(filePath, file);
-
-      if (uploadError) {
-        throw uploadError;
-      }
-
-      // 2. Get public URL
-      const { data } = supabase.storage.from("gallery").getPublicUrl(filePath);
-
-      // 3. Insert into editor
-      editor.chain().focus().setImage({ src: data.publicUrl }).run();
+      const localUrl = URL.createObjectURL(file);
+      editor.chain().focus().setImage({ src: localUrl }).run();
     } catch (error) {
-      console.error("Error uploading image:", error);
-      alert("Failed to upload image. Please check your connection.");
+      console.error("Error loading image:", error);
+      alert("Failed to load image.");
     }
   };
 

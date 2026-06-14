@@ -1,7 +1,6 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { supabase } from "@/integrations/supabase/client";
-import { useAdminAuth } from "@/hooks/use-admin-auth";
+import { useAdminAuth, signUpAdmin, signInAdmin } from "@/hooks/use-admin-auth";
 
 export const Route = createFileRoute("/admin/login")({
   component: AdminLogin,
@@ -34,39 +33,11 @@ function AdminLogin() {
     setBusy(true);
     try {
       if (mode === "signup") {
-        // Sign up the very first admin. If admins already exist, this account
-        // will sign in but won't get the admin role automatically.
-        const { data, error: signUpErr } = await supabase.auth.signUp({
-          email: email.trim(),
-          password,
-          options: { emailRedirectTo: `${window.location.origin}/admin` },
-        });
-        if (signUpErr) throw signUpErr;
-
-        // Try to claim the first-admin role. Allowed only if no admins exist yet.
-        if (data.user) {
-          const { error: roleErr } = await supabase.rpc("claim_first_admin");
-          if (roleErr) {
-            // Falls back silently — user can be promoted later.
-            console.warn("claim_first_admin:", roleErr.message);
-          }
-        }
-
-        if (!data.session) {
-          setInfo(
-            "Account created. Check your email to confirm, then sign in. (Tip: disable email confirmation in Lovable Cloud → Auth for instant access.)",
-          );
-          setMode("signin");
-        } else {
-          navigate({ to: "/admin" });
-        }
+        await signUpAdmin(email, password);
+        navigate({ to: "/admin" });
       } else {
-        const { error: signInErr } = await supabase.auth.signInWithPassword({
-          email: email.trim(),
-          password,
-        });
-        if (signInErr) throw signInErr;
-        // Auth listener will pick up the session and redirect via the effect above.
+        await signInAdmin(email, password);
+        navigate({ to: "/admin" });
       }
     } catch (err) {
       const msg = err instanceof Error ? err.message : "Authentication failed.";

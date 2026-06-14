@@ -1,7 +1,6 @@
 import { createFileRoute, Link, Outlet, useLocation, useNavigate } from "@tanstack/react-router";
 import { useEffect } from "react";
-import { supabase } from "@/integrations/supabase/client";
-import { useAdminAuth } from "@/hooks/use-admin-auth";
+import { useAdminAuth, logoutAdmin } from "@/hooks/use-admin-auth";
 import {
   LayoutDashboard,
   FileText,
@@ -82,8 +81,8 @@ function AdminLayout() {
           account, or create the first admin from the login page.
         </p>
         <button
-          onClick={async () => {
-            await supabase.auth.signOut();
+          onClick={() => {
+            logoutAdmin();
             navigate({ to: "/admin/login" });
           }}
           className="mt-2 bg-foreground px-5 py-2.5 text-xs font-semibold uppercase tracking-[0.16em] text-background hover:bg-primary"
@@ -94,8 +93,8 @@ function AdminLayout() {
     );
   }
 
-  const handleLogout = async () => {
-    await supabase.auth.signOut();
+  const handleLogout = () => {
+    logoutAdmin();
     navigate({ to: "/admin/login" });
   };
 
