@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import { deletePhoto, listPhotos, uploadPhoto, type AdminPhoto } from "@/lib/admin-store";
-import { Trash2, Upload } from "lucide-react";
+import { Trash2, Upload, X, Check } from "lucide-react";
 
 export const Route = createFileRoute("/admin/gallery")({
   component: AdminGallery,
@@ -12,6 +12,8 @@ function AdminGallery() {
   const [loading, setLoading] = useState(true);
   const [uploading, setUploading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [confirmDeleteId, setConfirmDeleteId] = useState<string | null>(null);
+  const [deleting, setDeleting] = useState<string | null>(null);
   const fileRef = useRef<HTMLInputElement>(null);
 
   const refresh = async () => {
@@ -46,13 +48,16 @@ function AdminGallery() {
     }
   };
 
-  const onDelete = async (p: AdminPhoto) => {
-    if (!confirm("Remove this photo from the gallery?")) return;
+  const onDeleteConfirmed = async (p: AdminPhoto) => {
+    setDeleting(p.id);
+    setConfirmDeleteId(null);
     try {
       await deletePhoto(p.id, p.storage_path);
       await refresh();
     } catch (e) {
-      alert(e instanceof Error ? e.message : "Delete failed");
+      setError(e instanceof Error ? e.message : "Delete failed");
+    } finally {
+      setDeleting(null);
     }
   };
 
@@ -113,13 +118,38 @@ function AdminGallery() {
                   alt={p.title}
                   className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
                 />
-                <button
-                  onClick={() => onDelete(p)}
-                  className="absolute right-2 top-2 rounded-full bg-foreground/80 p-1.5 text-background opacity-0 transition-opacity hover:bg-destructive group-hover:opacity-100"
-                  aria-label="Delete"
-                >
-                  <Trash2 className="h-3.5 w-3.5" />
-                </button>
+
+                {/* Delete confirmation overlay */}
+                {confirmDeleteId === p.id ? (
+                  <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-foreground/80 backdrop-blur-sm">
+                    <p className="text-sm font-semibold text-background">Remove this photo?</p>
+                    <div className="flex gap-2">
+                      <button
+                        onClick={() => onDeleteConfirmed(p)}
+                        className="flex items-center gap-1.5 rounded-full bg-destructive px-3 py-1.5 text-xs font-semibold text-white transition-opacity hover:opacity-90"
+                        aria-label="Confirm delete"
+                      >
+                        <Check className="h-3.5 w-3.5" /> Yes, delete
+                      </button>
+                      <button
+                        onClick={() => setConfirmDeleteId(null)}
+                        className="flex items-center gap-1.5 rounded-full bg-background/20 px-3 py-1.5 text-xs font-semibold text-background transition-opacity hover:opacity-90"
+                        aria-label="Cancel delete"
+                      >
+                        <X className="h-3.5 w-3.5" /> Cancel
+                      </button>
+                    </div>
+                  </div>
+                ) : (
+                  <button
+                    onClick={() => setConfirmDeleteId(p.id)}
+                    disabled={deleting === p.id}
+                    className="absolute right-2 top-2 rounded-full bg-foreground/80 p-1.5 text-background opacity-0 transition-opacity hover:bg-destructive group-hover:opacity-100 disabled:opacity-50"
+                    aria-label="Delete photo"
+                  >
+                    <Trash2 className="h-3.5 w-3.5" />
+                  </button>
+                )}
               </div>
               <figcaption className="p-4">
                 <p className="font-display text-base text-foreground">{p.title}</p>

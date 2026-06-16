@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { deleteMessage, listMessages, markMessageRead, type AdminMessage } from "@/lib/admin-store";
-import { Mail, MailOpen, Trash2 } from "lucide-react";
+import { Check, Mail, MailOpen, Trash2, X } from "lucide-react";
 
 export const Route = createFileRoute("/admin/messages")({
   component: AdminMessages,
@@ -12,6 +12,7 @@ function AdminMessages() {
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [confirmDeleteId, setConfirmDeleteId] = useState<string | null>(null);
 
   const refresh = async () => {
     setLoading(true);
@@ -44,14 +45,14 @@ function AdminMessages() {
   };
 
   const remove = async (id: string) => {
-    if (!confirm("Delete this message?")) return;
+    setConfirmDeleteId(null);
     try {
       await deleteMessage(id);
       const next = messages.filter((m) => m.id !== id);
       setMessages(next);
       if (selectedId === id) setSelectedId(next[0]?.id ?? null);
     } catch (e) {
-      alert(e instanceof Error ? e.message : "Delete failed");
+      setError(e instanceof Error ? e.message : "Delete failed");
     }
   };
 
@@ -142,19 +143,39 @@ function AdminMessages() {
                     {new Date(selected.receivedAt).toLocaleString()}
                   </p>
                 </div>
-                <div className="flex gap-2">
+                <div className="flex gap-2 items-center">
                   <a
                     href={`mailto:${selected.email}?subject=Re: ${encodeURIComponent(selected.subject)}`}
                     className="inline-flex items-center gap-2 border border-border px-4 py-2 text-xs font-semibold uppercase tracking-[0.16em] text-foreground hover:border-primary hover:text-primary"
                   >
                     <MailOpen className="h-3.5 w-3.5" /> Reply
                   </a>
-                  <button
-                    onClick={() => void remove(selected.id)}
-                    className="inline-flex items-center gap-2 border border-border px-4 py-2 text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground hover:border-destructive hover:text-destructive"
-                  >
-                    <Trash2 className="h-3.5 w-3.5" /> Delete
-                  </button>
+                  {confirmDeleteId === selected.id ? (
+                    <>
+                      <span className="text-xs text-muted-foreground">Delete?</span>
+                      <button
+                        onClick={() => void remove(selected.id)}
+                        className="inline-flex h-8 items-center gap-1 px-2 border border-destructive text-destructive text-xs hover:bg-destructive hover:text-white"
+                        aria-label="Confirm delete"
+                      >
+                        <Check className="h-3.5 w-3.5" /> Yes
+                      </button>
+                      <button
+                        onClick={() => setConfirmDeleteId(null)}
+                        className="inline-flex h-8 items-center gap-1 px-2 border border-border text-muted-foreground text-xs hover:text-foreground"
+                        aria-label="Cancel delete"
+                      >
+                        <X className="h-3.5 w-3.5" /> No
+                      </button>
+                    </>
+                  ) : (
+                    <button
+                      onClick={() => setConfirmDeleteId(selected.id)}
+                      className="inline-flex items-center gap-2 border border-border px-4 py-2 text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground hover:border-destructive hover:text-destructive"
+                    >
+                      <Trash2 className="h-3.5 w-3.5" /> Delete
+                    </button>
+                  )}
                 </div>
               </header>
               <div className="px-8 py-8">

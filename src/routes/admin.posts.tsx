@@ -8,7 +8,7 @@ import {
   uploadPostCover,
   type AdminPost,
 } from "@/lib/admin-store";
-import { Pencil, Plus, Search, Trash2, X } from "lucide-react";
+import { Check, Pencil, Plus, Search, Trash2, X } from "lucide-react";
 
 export const Route = createFileRoute("/admin/posts")({
   component: AdminPosts,
@@ -35,6 +35,8 @@ function AdminPosts() {
   const [saving, setSaving] = useState(false);
   const [uploadingCover, setUploadingCover] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [confirmDeleteId, setConfirmDeleteId] = useState<string | null>(null);
+  const [deleting, setDeleting] = useState<string | null>(null);
 
   const refresh = async () => {
     setLoading(true);
@@ -58,13 +60,16 @@ function AdminPosts() {
       p.category.toLowerCase().includes(query.toLowerCase()),
   );
 
-  const onDelete = async (id: string) => {
-    if (!confirm("Delete this post? This cannot be undone.")) return;
+  const onDeleteConfirmed = async (id: string) => {
+    setDeleting(id);
+    setConfirmDeleteId(null);
     try {
       await deletePost(id);
       await refresh();
     } catch (e) {
-      alert(e instanceof Error ? e.message : "Delete failed");
+      setError(e instanceof Error ? e.message : "Delete failed");
+    } finally {
+      setDeleting(null);
     }
   };
 
@@ -155,21 +160,45 @@ function AdminPosts() {
                   </span>
                 </td>
                 <td className="px-6 py-4">
-                  <div className="flex justify-end gap-2">
-                    <button
-                      onClick={() => setEditing(p)}
-                      className="inline-flex h-8 w-8 items-center justify-center border border-border text-muted-foreground hover:border-foreground hover:text-foreground"
-                      aria-label="Edit"
-                    >
-                      <Pencil className="h-3.5 w-3.5" />
-                    </button>
-                    <button
-                      onClick={() => onDelete(p.id)}
-                      className="inline-flex h-8 w-8 items-center justify-center border border-border text-muted-foreground hover:border-destructive hover:text-destructive"
-                      aria-label="Delete"
-                    >
-                      <Trash2 className="h-3.5 w-3.5" />
-                    </button>
+                  <div className="flex justify-end items-center gap-2">
+                    {confirmDeleteId === p.id ? (
+                      <>
+                        <span className="text-xs text-muted-foreground mr-1">Delete?</span>
+                        <button
+                          onClick={() => onDeleteConfirmed(p.id)}
+                          disabled={deleting === p.id}
+                          className="inline-flex h-8 items-center gap-1 px-2 border border-destructive text-destructive text-xs hover:bg-destructive hover:text-white disabled:opacity-50"
+                          aria-label="Confirm delete"
+                        >
+                          <Check className="h-3.5 w-3.5" /> Yes
+                        </button>
+                        <button
+                          onClick={() => setConfirmDeleteId(null)}
+                          className="inline-flex h-8 items-center gap-1 px-2 border border-border text-muted-foreground text-xs hover:text-foreground"
+                          aria-label="Cancel delete"
+                        >
+                          <X className="h-3.5 w-3.5" /> No
+                        </button>
+                      </>
+                    ) : (
+                      <>
+                        <button
+                          onClick={() => setEditing(p)}
+                          className="inline-flex h-8 w-8 items-center justify-center border border-border text-muted-foreground hover:border-foreground hover:text-foreground"
+                          aria-label="Edit"
+                        >
+                          <Pencil className="h-3.5 w-3.5" />
+                        </button>
+                        <button
+                          onClick={() => setConfirmDeleteId(p.id)}
+                          disabled={deleting === p.id}
+                          className="inline-flex h-8 w-8 items-center justify-center border border-border text-muted-foreground hover:border-destructive hover:text-destructive disabled:opacity-50"
+                          aria-label="Delete"
+                        >
+                          <Trash2 className="h-3.5 w-3.5" />
+                        </button>
+                      </>
+                    )}
                   </div>
                 </td>
               </tr>
