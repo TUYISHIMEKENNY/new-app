@@ -9,7 +9,7 @@ export const Route = createFileRoute("/_site/posts/")({
   component: PostsIndex,
   head: () => ({
     meta: [
-      { title: "Journal — Lumen" },
+      { title: "Journal — ILAEYESRwanda" },
       {
         name: "description",
         content: "Essays, guides, and research from the Lumen Epilepsy Initiative.",
@@ -35,7 +35,7 @@ function PostsIndex() {
           <div className="mx-auto max-w-7xl px-6 py-16 md:px-10 md:py-20">
             <p className="eyebrow">The Journal</p>
             <h1 className="mt-6 font-display text-5xl text-foreground md:text-7xl">
-              Essays, guides, research.
+             guides, research.
             </h1>
             <p className="mt-6 max-w-2xl text-base leading-relaxed text-muted-foreground md:text-lg">
               A long-form publication from the Lumen Initiative. Written by clinicians, researchers,
@@ -57,7 +57,7 @@ function PostsIndex() {
         <div className="mx-auto max-w-7xl px-6 py-16 md:px-10 md:py-20">
           <p className="eyebrow">The Journal</p>
           <h1 className="mt-6 font-display text-5xl text-foreground md:text-7xl">
-            Essays, guides, research.
+           guides, research.
           </h1>
           <p className="mt-6 max-w-2xl text-base leading-relaxed text-muted-foreground md:text-lg">
             A long-form publication from the Lumen Initiative. Written by clinicians, researchers,

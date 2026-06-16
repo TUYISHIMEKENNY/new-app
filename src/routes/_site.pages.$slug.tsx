@@ -393,9 +393,9 @@ function PageView() {
           className="prose prose-base md:prose-lg prose-neutral max-w-none text-foreground prose-headings:font-display prose-a:text-primary hover:prose-a:text-primary/80 prose-img:rounded-md"
           dangerouslySetInnerHTML={{ __html: getPageBody(page) }}
         />
-        {!getPageBody(page) && (
+        {/* {!getPageBody(page) && (
           <p className="text-center text-muted-foreground italic">This page is currently empty.</p>
-        )}
+        )} */}
 
         {page.slug === "members" && (
           <div className="mt-20 pt-16 border-t border-border">
