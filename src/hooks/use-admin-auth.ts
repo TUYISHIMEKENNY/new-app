@@ -1,89 +1,54 @@
 import { useEffect, useState } from "react";
+import { supabase } from "@/integrations/supabase";
+import type { User } from "@supabase/supabase-js";
 
 export type AdminAuthState = {
   isReady: boolean;
-  user: { email: string } | null;
+  user: User | null;
   isAdmin: boolean;
 };
 
-const AUTH_KEY = "lumen_admin_user";
-const CREDENTIALS_KEY = "lumen_admin_credentials";
-const AUTH_EVENT = "lumen_auth_change";
-
 export function useAdminAuth(): AdminAuthState {
   const [isReady, setIsReady] = useState(false);
-  const [user, setUser] = useState<{ email: string } | null>(null);
+  const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
-    const checkAuth = () => {
-      const stored = localStorage.getItem(AUTH_KEY);
-      if (stored) {
-        try {
-          setUser(JSON.parse(stored));
-        } catch (e) {
-          localStorage.removeItem(AUTH_KEY);
-          setUser(null);
-        }
-      } else {
-        setUser(null);
-      }
+    // Get current session on mount
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setUser(session?.user ?? null);
       setIsReady(true);
-    };
+    });
 
-    checkAuth();
-    window.addEventListener(AUTH_EVENT, checkAuth);
-    window.addEventListener("storage", checkAuth);
-    return () => {
-      window.removeEventListener(AUTH_EVENT, checkAuth);
-      window.removeEventListener("storage", checkAuth);
-    };
+    // Listen for auth state changes (sign in, sign out, token refresh)
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user ?? null);
+      setIsReady(true);
+    });
+
+    return () => subscription.unsubscribe();
   }, []);
 
   return {
     isReady,
     user,
+    // Any authenticated Supabase user is treated as admin.
+    // For finer control you can check user.app_metadata.role === 'admin'.
     isAdmin: !!user,
   };
 }
 
-export function loginAdmin(email: string) {
-  localStorage.setItem(AUTH_KEY, JSON.stringify({ email }));
-  window.dispatchEvent(new Event(AUTH_EVENT));
-}
-
 export function logoutAdmin() {
-  localStorage.removeItem(AUTH_KEY);
-  window.dispatchEvent(new Event(AUTH_EVENT));
+  supabase.auth.signOut();
 }
 
 export async function signUpAdmin(email: string, password: string): Promise<void> {
-  // Simulate network latency
-  await new Promise((resolve) => setTimeout(resolve, 500));
-  const normalizedEmail = email.trim().toLowerCase();
-  
-  const usersRaw = localStorage.getItem(CREDENTIALS_KEY);
-  const users: Record<string, string> = usersRaw ? JSON.parse(usersRaw) : {};
-  
-  if (users[normalizedEmail]) {
-    throw new Error("User already exists.");
-  }
-  
-  users[normalizedEmail] = password;
-  localStorage.setItem(CREDENTIALS_KEY, JSON.stringify(users));
-  loginAdmin(normalizedEmail);
+  const { error } = await supabase.auth.signUp({ email, password });
+  if (error) throw new Error(error.message);
 }
 
 export async function signInAdmin(email: string, password: string): Promise<void> {
-  // Simulate network latency
-  await new Promise((resolve) => setTimeout(resolve, 500));
-  const normalizedEmail = email.trim().toLowerCase();
-  
-  const usersRaw = localStorage.getItem(CREDENTIALS_KEY);
-  const users: Record<string, string> = usersRaw ? JSON.parse(usersRaw) : {};
-  
-  if (!users[normalizedEmail] || users[normalizedEmail] !== password) {
-    throw new Error("Invalid email or password.");
-  }
-  
-  loginAdmin(normalizedEmail);
+  const { error } = await supabase.auth.signInWithPassword({ email, password });
+  if (error) throw new Error(error.message);
 }
