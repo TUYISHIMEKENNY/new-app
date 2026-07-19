@@ -11,6 +11,7 @@ import {
   Menu,
   X,
   Users,
+  Layers,
 } from "lucide-react";
 import { useState } from "react";
 import { ThemeToggle } from "@/components/theme-toggle";
@@ -29,7 +30,8 @@ type NavItem = {
     | "/admin/pages"
     | "/admin/team"
     | "/admin/gallery"
-    | "/admin/messages";
+    | "/admin/messages"
+    | "/admin/cms";
   label: string;
   icon: typeof LayoutDashboard;
   exact?: boolean;
@@ -42,6 +44,7 @@ const NAV: NavItem[] = [
   { to: "/admin/team", label: "Team", icon: Users },
   { to: "/admin/gallery", label: "Gallery", icon: ImageIcon },
   { to: "/admin/messages", label: "Messages", icon: Mail },
+  { to: "/admin/cms", label: "CMS Editor", icon: Layers },
 ];
 
 function AdminLayout() {

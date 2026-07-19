@@ -1,29 +1,39 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Heart, Check } from "lucide-react";
 import { useState } from "react";
+import { getCMSContent } from "@/lib/admin-store";
 
 export const Route = createFileRoute("/_site/donate")({
+  loader: async () => {
+    return await getCMSContent("donate");
+  },
   component: Donate,
-  head: () => ({
-    meta: [
-      { title: "Donate — Epilepsy Alliance Africa" },
-      {
-        name: "description",
-        content:
-          "Make a contribution to Epilepsy Alliance Africa. Your gift funds quiet, careful, evidence-led work.",
-      },
-    ],
-  }),
+  head: ({ loaderData }) => {
+    const seo = loaderData?.seo;
+    return {
+      meta: [
+        { title: seo?.title ?? "Donate — Epilepsy Alliance Africa" },
+        {
+          name: "description",
+          content:
+            seo?.description ?? "Make a contribution to Epilepsy Alliance Africa. Your gift funds quiet, careful, evidence-led work.",
+        },
+      ],
+    };
+  },
 });
 
 function Donate() {
+  const cms = Route.useLoaderData();
   const [donationType, setDonationType] = useState<"One-Time" | "Monthly">("One-Time");
   const [selectedAmount, setSelectedAmount] = useState<number | "Other">(100);
   const [customAmount, setCustomAmount] = useState<string>("100.00");
   const [coverFees, setCoverFees] = useState(true);
   const [visibility, setVisibility] = useState<"public" | "anonymous">("public");
 
-  const amounts = [35, 50, 100, 250, 500];
+  const amounts = cms.formConfig?.amounts || [35, 50, 100, 250, 500];
+  const formHeading = cms.formConfig?.heading || "Make a Donation";
+  const inquiryEmail = cms.formConfig?.inquiryEmail || "epilepsyallianceafrica@gmail.com";
 
   const actualAmount = selectedAmount === "Other" ? parseFloat(customAmount) || 0 : selectedAmount;
   // Assuming a 3.75% processing fee
@@ -32,24 +42,24 @@ function Donate() {
 
   return (
     <article>
-      <header className="border-b border-border bg-foreground text-background">
-        <div className="mx-auto max-w-7xl px-6 py-20 md:px-10 md:py-28">
-          <p className="eyebrow text-background/70">Support</p>
-          <h1 className="mt-6 max-w-3xl font-display text-5xl leading-[1.05] md:text-7xl">
-            Your gift funds quiet, careful, evidence-led work.
-          </h1>
-          <p className="mt-8 max-w-2xl text-lg leading-relaxed text-background/80">
-            Epilepsy Alliance Africa accepts no industry funding. We are sustained entirely by
-            individual donors and a small number of mission-aligned foundations. Every contribution
-            is acknowledged. Every dollar is accounted for.
-          </p>
-        </div>
-      </header>
+      {cms.header && (
+        <header className="border-b border-border bg-foreground text-background">
+          <div className="mx-auto max-w-7xl px-6 py-20 md:px-10 md:py-28">
+            <p className="eyebrow text-background/70">{cms.header.label}</p>
+            <h1 className="mt-6 max-w-3xl font-display text-5xl leading-[1.05] md:text-7xl">
+              {cms.header.heading}
+            </h1>
+            <p className="mt-8 max-w-2xl text-lg leading-relaxed text-background/80">
+              {cms.header.description}
+            </p>
+          </div>
+        </header>
+      )}
 
       <section className="bg-background">
         <div className="mx-auto max-w-3xl px-6 py-20 md:px-10">
           <div className="bg-card border border-border shadow-sm p-8 md:p-12 rounded-xl">
-            <h2 className="font-display text-3xl mb-8 text-foreground">Make a Donation</h2>
+            <h2 className="font-display text-3xl mb-8 text-foreground">{formHeading}</h2>
 
             <form onSubmit={(e) => e.preventDefault()} className="space-y-10">
               {/* Donation Option */}
@@ -90,7 +100,7 @@ function Donate() {
                   <span className="text-destructive">*Required</span>
                 </label>
                 <div className="grid grid-cols-2 gap-3 md:grid-cols-3">
-                  {amounts.map((amt) => (
+                  {amounts.map((amt: number) => (
                     <button
                       key={amt}
                       type="button"
@@ -246,10 +256,10 @@ function Donate() {
           <p className="mt-8 text-center text-sm text-muted-foreground">
             For wire transfers, planned giving, or partnership inquiries, please write to{" "}
             <a
-              href="mailto:epilepsyallianceafrica@gmail.com"
+              href={`mailto:${inquiryEmail}`}
               className="text-foreground underline underline-offset-4 hover:text-primary"
             >
-              epilepsyallianceafrica@gmail.com
+              {inquiryEmail}
             </a>
           </p>
         </div>

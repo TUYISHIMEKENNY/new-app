@@ -1,20 +1,27 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { listPhotos } from "@/lib/admin-store";
+import { listPhotos, getCMSContent } from "@/lib/admin-store";
 
 export const Route = createFileRoute("/_site/gallery")({
   loader: async () => {
-    return await listPhotos();
+    const [photos, cms] = await Promise.all([
+      listPhotos(),
+      getCMSContent("gallery")
+    ]);
+    return { photos, cms };
   },
   component: Gallery,
-  head: () => ({
-    meta: [
-      { title: "Gallery — ILAE YOUTH NURSE RWANDA " },
-      {
-        name: "description",
-        content: "Photographs from Lumen events, programs, and community gatherings.",
-      },
-    ],
-  }),
+  head: ({ loaderData }) => {
+    const seo = loaderData?.cms?.seo;
+    return {
+      meta: [
+        { title: seo?.title ?? "Gallery — ILAE YOUTH NURSE RWANDA " },
+        {
+          name: "description",
+          content: seo?.description ?? "Photographs from Lumen events, programs, and community gatherings.",
+        },
+      ],
+    };
+  },
 });
 
 function spanClass(span: string) {
@@ -29,6 +36,7 @@ function aspectClass(span: string) {
   return "aspect-[4/3]";
 }
 
+// Retain visual masonry layout variation
 function getSpan(i: number) {
   if (i === 1 || i === 8 || i === 14) return "tall";
   if (i === 2 || i === 7 || i === 11 || i === 15) return "wide";
@@ -36,30 +44,31 @@ function getSpan(i: number) {
 }
 
 function Gallery() {
-  const events = Route.useLoaderData();
+  const { photos, cms } = Route.useLoaderData();
   return (
     <article>
-      <header className="border-b border-border">
-        <div className="mx-auto max-w-7xl px-6 py-16 md:px-10 md:py-20">
-          <p className="eyebrow">Gallery</p>
-          <h1 className="mt-6 font-display text-5xl text-foreground md:text-7xl">
-            Programs, walks, gatherings.
-          </h1>
-          <p className="mt-6 max-w-2xl text-base leading-relaxed text-muted-foreground md:text-lg">
-            A visual record of the work — captured by photographers in the field, at clinics, and
-            inside community rooms.
-          </p>
-        </div>
-      </header>
+      {cms.header && (
+        <header className="border-b border-border">
+          <div className="mx-auto max-w-7xl px-6 py-16 md:px-10 md:py-20">
+            <p className="eyebrow">{cms.header.label}</p>
+            <h1 className="mt-6 font-display text-5xl text-foreground md:text-7xl">
+              {cms.header.heading}
+            </h1>
+            <p className="mt-6 max-w-2xl text-base leading-relaxed text-muted-foreground md:text-lg">
+              {cms.header.description}
+            </p>
+          </div>
+        </header>
+      )}
 
       <section className="mx-auto max-w-7xl px-6 py-16 md:px-10 md:py-24">
         <div className="grid auto-rows-[200px] grid-cols-1 gap-4 md:auto-rows-[280px] md:grid-cols-3">
-          {events.length === 0 && (
+          {photos.length === 0 && (
             <p className="text-muted-foreground md:col-span-3 text-center py-12">
               No photos uploaded yet.
             </p>
           )}
-          {events.map((e, i) => {
+          {photos.map((e, i) => {
             const span = getSpan(i);
             return (
               <figure

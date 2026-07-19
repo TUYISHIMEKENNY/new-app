@@ -2,6 +2,7 @@ import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { Heart, Check, CreditCard, Lock } from "lucide-react";
 import { useState } from "react";
 import { z } from "zod";
+import { getCMSContent } from "@/lib/admin-store";
 
 const searchSchema = z.object({
   amount: z.number().catch(100),
@@ -10,17 +11,29 @@ const searchSchema = z.object({
 
 export const Route = createFileRoute("/_site/donate-details")({
   validateSearch: searchSchema,
+  loader: async () => {
+    return await getCMSContent("donate-details");
+  },
   component: DonateDetails,
-  head: () => ({
-    meta: [{ title: "Complete Donation — ILAE YES RWANDA" }],
-  }),
+  head: ({ loaderData }) => {
+    const seo = loaderData?.seo;
+    return {
+      meta: [
+        { title: seo?.title ?? "Complete Donation — ILAE YES RWANDA" },
+        {
+          name: "description",
+          content: seo?.description ?? "Complete your secure donation.",
+        },
+      ],
+    };
+  },
 });
 
 function DonateDetails() {
+  const cms = Route.useLoaderData();
   const { amount, type } = Route.useSearch();
   const navigate = useNavigate();
-
-  // Tribute States
+// Tribute States
   const [isTribute, setIsTribute] = useState(false);
   const [tributeType, setTributeType] = useState<"memory" | "honor" | "">("");
 
@@ -67,15 +80,18 @@ function DonateDetails() {
 
   return (
     <article>
-      <header className="border-b border-border bg-foreground text-background">
-        <div className="mx-auto max-w-3xl px-6 py-12 md:px-10">
-          <p className="eyebrow text-background/70">Complete Your Gift</p>
-          <h1 className="mt-4 max-w-3xl font-display text-4xl md:text-5xl">
-            You are giving <span className="text-primary">${amount.toFixed(2)}</span>{" "}
-            {type.toLowerCase()}.
-          </h1>
-        </div>
-      </header>
+      {cms.header && (
+        <header className="border-b border-border bg-foreground text-background">
+          <div className="mx-auto max-w-3xl px-6 py-12 md:px-10">
+            <p className="eyebrow text-background/70">{cms.header.label}</p>
+            <h1 className="mt-4 max-w-3xl font-display text-4xl md:text-5xl">
+              {cms.header.amountPrefix || "You are giving"}{" "}
+              <span className="text-primary">${amount.toFixed(2)}</span>{" "}
+              {type.toLowerCase()}.
+            </h1>
+          </div>
+        </header>
+      )}
 
       <section className="bg-background">
         <div className="mx-auto max-w-3xl px-6 py-16 md:px-10">

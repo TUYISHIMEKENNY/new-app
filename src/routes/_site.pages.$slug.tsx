@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { getPageBySlug, listTeamMembers, submitMessage } from "@/lib/admin-store";
+import { getPageBySlug, listTeamMembers, submitMessage, getCMSContent } from "@/lib/admin-store";
 import { useState } from "react";
 import { Send } from "lucide-react";
 
@@ -121,7 +121,9 @@ export const Route = createFileRoute("/_site/pages/$slug")({
       throw new Error("Page not found");
     }
 
-    return { page, teamMembers };
+    const cms = await getCMSContent(params.slug).catch(() => null);
+
+    return { page, teamMembers, cms };
   },
   staleTime: 0,
   component: PageView,
@@ -136,10 +138,12 @@ export const Route = createFileRoute("/_site/pages/$slug")({
   head: ({ loaderData }) => {
     // loaderData can be undefined during early render phases or errors
     const page = loaderData?.page;
+    const cms = loaderData?.cms;
     return {
       meta: [
-        { title: `${page?.title ?? "Page"} — ILAE YOUTH NURSE RWANDA` },
-        { name: "description", content: page?.excerpt ?? "" },
+        { title: cms?.seo?.title || `${page?.title ?? "Page"} — ILAE YOUTH NURSE RWANDA` },
+        { name: "description", content: cms?.seo?.description || page?.excerpt || "" },
+        { name: "keywords", content: cms?.seo?.keywords || "" },
       ],
     };
   },

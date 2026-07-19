@@ -1,21 +1,28 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { listPosts } from "@/lib/admin-store";
+import { listPosts, getCMSContent } from "@/lib/admin-store";
 
 export const Route = createFileRoute("/_site/posts/")({
   loader: async () => {
-    const allPosts = await listPosts();
-    return allPosts.filter((p) => p.status === "Published");
+    const [allPosts, cms] = await Promise.all([
+      listPosts(),
+      getCMSContent("posts-index")
+    ]);
+    const posts = allPosts.filter((p) => p.status === "Published");
+    return { posts, cms };
   },
   component: PostsIndex,
-  head: () => ({
-    meta: [
-      { title: "Journal — ILAEYESRwanda" },
-      {
-        name: "description",
-        content: "Essays, guides, and research from the Lumen Epilepsy Initiative.",
-      },
-    ],
-  }),
+  head: ({ loaderData }) => {
+    const seo = loaderData?.cms?.seo;
+    return {
+      meta: [
+        { title: seo?.title ?? "Journal — ILAEYESRwanda" },
+        {
+          name: "description",
+          content: seo?.description ?? "Essays, guides, and research from the Lumen Epilepsy Initiative.",
+        },
+      ],
+    };
+  },
 });
 
 function calculateReadTime(body?: string | null) {
@@ -26,23 +33,24 @@ function calculateReadTime(body?: string | null) {
 }
 
 function PostsIndex() {
-  const posts = Route.useLoaderData();
+  const { posts, cms } = Route.useLoaderData();
 
   if (posts.length === 0) {
     return (
       <article>
-        <header className="border-b border-border">
-          <div className="mx-auto max-w-7xl px-6 py-16 md:px-10 md:py-20">
-            <p className="eyebrow">The Journal</p>
-            <h1 className="mt-6 font-display text-5xl text-foreground md:text-7xl">
-             guides, research.
-            </h1>
-            <p className="mt-6 max-w-2xl text-base leading-relaxed text-muted-foreground md:text-lg">
-              A long-form publication from the Lumen Initiative. Written by clinicians, researchers,
-              and people who live with epilepsy.
-            </p>
-          </div>
-        </header>
+        {cms.header && (
+          <header className="border-b border-border">
+            <div className="mx-auto max-w-7xl px-6 py-16 md:px-10 md:py-20">
+              <p className="eyebrow">{cms.header.label}</p>
+              <h1 className="mt-6 font-display text-5xl text-foreground md:text-7xl">
+                {cms.header.heading}
+              </h1>
+              <p className="mt-6 max-w-2xl text-base leading-relaxed text-muted-foreground md:text-lg">
+                {cms.header.description}
+              </p>
+            </div>
+          </header>
+        )}
         <section className="mx-auto max-w-7xl px-6 py-20 text-center md:px-10">
           <p className="text-muted-foreground">No published posts available yet.</p>
         </section>
@@ -53,18 +61,19 @@ function PostsIndex() {
   const [lead, ...rest] = posts;
   return (
     <article>
-      <header className="border-b border-border">
-        <div className="mx-auto max-w-7xl px-6 py-16 md:px-10 md:py-20">
-          <p className="eyebrow">The Journal</p>
-          <h1 className="mt-6 font-display text-5xl text-foreground md:text-7xl">
-           guides, research.
-          </h1>
-          <p className="mt-6 max-w-2xl text-base leading-relaxed text-muted-foreground md:text-lg">
-            A long-form publication from the Lumen Initiative. Written by clinicians, researchers,
-            and people who live with epilepsy.
-          </p>
-        </div>
-      </header>
+      {cms.header && (
+        <header className="border-b border-border">
+          <div className="mx-auto max-w-7xl px-6 py-16 md:px-10 md:py-20">
+            <p className="eyebrow">{cms.header.label}</p>
+            <h1 className="mt-6 font-display text-5xl text-foreground md:text-7xl">
+              {cms.header.heading}
+            </h1>
+            <p className="mt-6 max-w-2xl text-base leading-relaxed text-muted-foreground md:text-lg">
+              {cms.header.description}
+            </p>
+          </div>
+        </header>
+      )}
 
       {/* Lead */}
       <section className="border-b border-border">

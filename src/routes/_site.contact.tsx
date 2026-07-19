@@ -1,23 +1,30 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { Mail, MapPin, Phone, Send } from "lucide-react";
-import { submitMessage } from "@/lib/admin-store";
+import { submitMessage, getCMSContent } from "@/lib/admin-store";
 
 export const Route = createFileRoute("/_site/contact")({
+  loader: async () => {
+    return await getCMSContent("contact");
+  },
   component: Contact,
-  head: () => ({
-    meta: [
-      { title: "Contact — Lumen" },
-      {
-        name: "description",
-        content:
-          "Get in touch with the Lumen Epilepsy Initiative — questions, partnerships, or press inquiries.",
-      },
-    ],
-  }),
+  head: ({ loaderData }) => {
+    const seo = loaderData?.seo;
+    return {
+      meta: [
+        { title: seo?.title ?? "Contact — Lumen" },
+        {
+          name: "description",
+          content:
+            seo?.description ?? "Get in touch with the Lumen Epilepsy Initiative — questions, partnerships, or press inquiries.",
+        },
+      ],
+    };
+  },
 });
 
 function Contact() {
+  const cms = Route.useLoaderData();
   const [sent, setSent] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
@@ -39,68 +46,78 @@ function Contact() {
 
   return (
     <article>
-      <header className="border-b border-border">
-        <div className="mx-auto max-w-7xl px-6 py-16 md:px-10 md:py-20">
-          <p className="eyebrow">Contact</p>
-          <h1 className="mt-6 font-display text-5xl text-foreground md:text-7xl">Write to us.</h1>
-          <p className="mt-6 max-w-2xl text-base leading-relaxed text-muted-foreground md:text-lg">
-            Questions, partnership inquiries, press, or just a note — we read everything ourselves.
-          </p>
-        </div>
-      </header>
+      {cms.header && (
+        <header className="border-b border-border">
+          <div className="mx-auto max-w-7xl px-6 py-16 md:px-10 md:py-20">
+            <p className="eyebrow">{cms.header.label}</p>
+            <h1 className="mt-6 font-display text-5xl text-foreground md:text-7xl">{cms.header.heading}</h1>
+            <p className="mt-6 max-w-2xl text-base leading-relaxed text-muted-foreground md:text-lg">
+              {cms.header.description}
+            </p>
+          </div>
+        </header>
+      )}
 
       <section className="mx-auto grid max-w-7xl grid-cols-1 gap-16 px-6 py-20 md:px-10 lg:grid-cols-12">
         <aside className="space-y-10 lg:col-span-4">
-          <div>
-            <p className="eyebrow">Email</p>
-            <a
-              href="mailto:hello@lumen.org"
-              className="mt-3 flex items-center gap-3 font-display text-2xl text-foreground hover:text-primary"
-            >
-              <Mail className="h-5 w-5" />
-              yesilaerwanda@gmail.com.org
-            </a>
-          </div>
-          <div>
-            <p className="eyebrow">Phone</p>
-            <div className="mt-3 flex flex-col gap-2">
+          {cms.infoBlock?.email && (
+            <div>
+              <p className="eyebrow">Email</p>
               <a
-                href="tel:+447984880322"
-                className="flex items-center gap-3 text-base text-foreground hover:text-primary transition-colors"
+                href={`mailto:${cms.infoBlock.email}`}
+                className="mt-3 flex items-center gap-3 font-display text-2xl text-foreground hover:text-primary"
               >
-                <Phone className="h-5 w-5 shrink-0 text-primary" />
-                +44 7984 880322
-              </a>
-              <a
-                href="tel:+250785457841"
-                className="flex items-center gap-3 text-base text-foreground hover:text-primary transition-colors"
-              >
-                <Phone className="h-5 w-5 shrink-0 text-primary" />
-                +250 785 457 841
+                <Mail className="h-5 w-5" />
+                {cms.infoBlock.email}
               </a>
             </div>
-          </div>
-          <div>
-            <p className="eyebrow">Studio</p>
-            <p className="mt-3 flex items-start gap-3 text-base text-foreground">
-              <MapPin className="mt-1 h-5 w-5 shrink-0 text-primary" />
-              <span>
-                Rwanda
-                <br />
-                KIGALI
-                <br />
-                Ndera
-              </span>
-            </p>
-          </div>
-          <div>
-            <p className="eyebrow">Hours</p>
-            <p className="mt-3 text-base text-foreground">
-              Monday — Friday
-              <br />
-              09:00 — 17:00 CET
-            </p>
-          </div>
+          )}
+          {cms.infoBlock?.phones && cms.infoBlock.phones.length > 0 && (
+            <div>
+              <p className="eyebrow">Phone</p>
+              <div className="mt-3 flex flex-col gap-2">
+                {cms.infoBlock.phones.map((phone: string) => (
+                  <a
+                    key={phone}
+                    href={`tel:${phone.replace(/\s+/g, "")}`}
+                    className="flex items-center gap-3 text-base text-foreground hover:text-primary transition-colors"
+                  >
+                    <Phone className="h-5 w-5 shrink-0 text-primary" />
+                    {phone}
+                  </a>
+                ))}
+              </div>
+            </div>
+          )}
+          {cms.infoBlock?.address && cms.infoBlock.address.length > 0 && (
+            <div>
+              <p className="eyebrow">Studio</p>
+              <p className="mt-3 flex items-start gap-3 text-base text-foreground">
+                <MapPin className="mt-1 h-5 w-5 shrink-0 text-primary" />
+                <span>
+                  {cms.infoBlock.address.map((line: string, i: number) => (
+                    <span key={i}>
+                      {line}
+                      {i < cms.infoBlock.address.length - 1 && <br />}
+                    </span>
+                  ))}
+                </span>
+              </p>
+            </div>
+          )}
+          {cms.infoBlock?.hours && cms.infoBlock.hours.length > 0 && (
+            <div>
+              <p className="eyebrow">Hours</p>
+              <p className="mt-3 text-base text-foreground">
+                {cms.infoBlock.hours.map((line: string, i: number) => (
+                  <span key={i}>
+                    {line}
+                    {i < cms.infoBlock.hours.length - 1 && <br />}
+                  </span>
+                ))}
+              </p>
+            </div>
+          )}
         </aside>
 
         <form className="space-y-6 lg:col-span-8" onSubmit={onSubmit}>

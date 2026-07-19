@@ -1,5 +1,6 @@
 // Supabase-backed admin data layer for Lumen.
 import { supabase } from "@/integrations/supabase";
+import { getCmsDefaults } from "@/data/cms-defaults";
 
 // ---------- Types ----------
 export type AdminPost = {
@@ -76,6 +77,8 @@ export async function listPosts(): Promise<AdminPost[]> {
     .select("*")
     .neq("category", "Page")
     .neq("category", "TeamMember")
+    .neq("category", "CMSPageContent")
+    .neq("category", "CMSPageRevision")
     .order("date", { ascending: false });
 
   if (error) {
@@ -352,4 +355,189 @@ export async function submitMessage(input: {
     console.error("Error submitting message to Supabase:", error);
     throw error;
   }
+}
+
+// ---------- CMS content ----------
+export async function getCMSContent(slug: string): Promise<any> {
+  const { data, error } = await supabase
+    .from("posts")
+    .select("*")
+    .eq("category", "CMSPageContent")
+    .eq("slug", slug)
+    .maybeSingle();
+
+  const defaults = getCmsDefaults(slug);
+
+  if (error) {
+    console.error(`Error getting CMS content for ${slug}:`, error);
+    return defaults;
+  }
+
+  if (!data || !data.body) {
+    return defaults;
+  }
+
+  try {
+    const parsed = JSON.parse(data.body);
+    // Deep merge or simple shallow merge with defaults to ensure all fields are present
+    return {
+      ...defaults,
+      ...parsed,
+      seo: {
+        ...defaults.seo,
+        ...(parsed.seo || {}),
+      },
+      // Keep ID and status from the DB record
+      id: data.id,
+      status: data.status,
+      cover: data.cover || parsed.cover || defaults.cover,
+      title: data.title || parsed.title || defaults.title,
+      excerpt: data.excerpt || parsed.excerpt || defaults.excerpt,
+    };
+  } catch (e) {
+    console.error(`Error parsing CMS content JSON for ${slug}:`, e);
+    return defaults;
+  }
+}
+
+export async function saveCMSContent(slug: string, content: any): Promise<void> {
+  const defaults = getCmsDefaults(slug);
+  const title = content.seo?.title || defaults.seo?.title || slug.toUpperCase();
+  const excerpt = content.seo?.description || defaults.seo?.description || `CMS content for ${slug}`;
+  const cover = content.cover || content.hero?.image || defaults.cover || null;
+  const serializedBody = JSON.stringify(content);
+
+  // Check if it already exists
+  const { data: existing, error: checkError } = await supabase
+    .from("posts")
+    .select("id")
+    .eq("category", "CMSPageContent")
+    .eq("slug", slug)
+    .maybeSingle();
+
+  if (checkError) {
+    console.error(`Error checking existing CMS content for ${slug}:`, checkError);
+    throw checkError;
+  }
+
+  if (existing) {
+    const { error: updateError } = await supabase
+      .from("posts")
+      .update({
+        title,
+        excerpt,
+        body: serializedBody,
+        cover,
+        date: new Date().toISOString().slice(0, 10),
+      })
+      .eq("id", existing.id);
+
+    if (updateError) {
+      console.error(`Error updating CMS content for ${slug}:`, updateError);
+      throw updateError;
+    }
+  } else {
+    const { error: insertError } = await supabase
+      .from("posts")
+      .insert([
+        {
+          slug,
+          title,
+          category: "CMSPageContent",
+          author: "Admin",
+          status: "Published",
+          excerpt,
+          body: serializedBody,
+          cover,
+          date: new Date().toISOString().slice(0, 10),
+        }
+      ]);
+
+    if (insertError) {
+      console.error(`Error inserting CMS content for ${slug}:`, insertError);
+      throw insertError;
+    }
+  }
+
+  // Also save a revision backup
+  await saveCMSRevision(slug, content);
+}
+
+export async function saveCMSRevision(slug: string, content: any): Promise<void> {
+  const timestamp = Date.now();
+  const revSlug = `${slug}-rev-${timestamp}`;
+  const serializedBody = JSON.stringify(content);
+  const title = `Revision for ${slug} at ${new Date().toLocaleString()}`;
+
+  const { error } = await supabase
+    .from("posts")
+    .insert([
+      {
+        slug: revSlug,
+        title,
+        category: "CMSPageRevision",
+        author: "Admin",
+        status: "Draft",
+        excerpt: `Backup revision for ${slug}`,
+        body: serializedBody,
+        date: new Date().toISOString().slice(0, 10),
+      }
+    ]);
+
+  if (error) {
+    console.error(`Error saving revision for ${slug}:`, error);
+  }
+}
+
+export async function listCMSRevisions(slug: string): Promise<any[]> {
+  const { data, error } = await supabase
+    .from("posts")
+    .select("*")
+    .eq("category", "CMSPageRevision")
+    .like("slug", `${slug}-rev-%`)
+    .order("created_at", { ascending: false });
+
+  if (error) {
+    console.error(`Error listing revisions for ${slug}:`, error);
+    return [];
+  }
+
+  return (data || []).map((row) => {
+    let parsedContent = {};
+    try {
+      parsedContent = JSON.parse(row.body || "{}");
+    } catch (e) {
+      console.error("Error parsing revision body:", e);
+    }
+    return {
+      id: row.id,
+      slug: row.slug,
+      title: row.title,
+      date: row.created_at || row.date,
+      content: parsedContent,
+    };
+  });
+}
+
+export async function restoreCMSRevision(id: string, slug: string): Promise<void> {
+  const { data: rev, error: fetchError } = await supabase
+    .from("posts")
+    .select("*")
+    .eq("id", id)
+    .maybeSingle();
+
+  if (fetchError || !rev || !rev.body) {
+    console.error("Error fetching revision to restore:", fetchError);
+    throw new Error(fetchError?.message || "Revision not found");
+  }
+
+  let content;
+  try {
+    content = JSON.parse(rev.body);
+  } catch (e) {
+    throw new Error("Invalid revision content format");
+  }
+
+  // Save this content to the main CMS page row
+  await saveCMSContent(slug, content);
 }

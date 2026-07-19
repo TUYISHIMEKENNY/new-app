@@ -19,6 +19,7 @@ import { Route as AdminPagesRouteImport } from './routes/admin.pages'
 import { Route as AdminMessagesRouteImport } from './routes/admin.messages'
 import { Route as AdminLoginRouteImport } from './routes/admin.login'
 import { Route as AdminGalleryRouteImport } from './routes/admin.gallery'
+import { Route as AdminCmsRouteImport } from './routes/admin.cms'
 import { Route as SiteGalleryRouteImport } from './routes/_site.gallery'
 import { Route as SiteDonateDetailsRouteImport } from './routes/_site.donate-details'
 import { Route as SiteDonateRouteImport } from './routes/_site.donate'
@@ -77,6 +78,11 @@ const AdminGalleryRoute = AdminGalleryRouteImport.update({
   path: '/gallery',
   getParentRoute: () => AdminRoute,
 } as any)
+const AdminCmsRoute = AdminCmsRouteImport.update({
+  id: '/cms',
+  path: '/cms',
+  getParentRoute: () => AdminRoute,
+} as any)
 const SiteGalleryRoute = SiteGalleryRouteImport.update({
   id: '/gallery',
   path: '/gallery',
@@ -127,6 +133,7 @@ export interface FileRoutesByFullPath {
   '/donate-details': typeof SiteDonateDetailsRoute
   '/gallery': typeof SiteGalleryRoute
   '/admin/gallery': typeof AdminGalleryRoute
+  '/admin/cms': typeof AdminCmsRoute
   '/admin/login': typeof AdminLoginRoute
   '/admin/messages': typeof AdminMessagesRoute
   '/admin/pages': typeof AdminPagesRoute
@@ -144,6 +151,7 @@ export interface FileRoutesByTo {
   '/donate-details': typeof SiteDonateDetailsRoute
   '/gallery': typeof SiteGalleryRoute
   '/admin/gallery': typeof AdminGalleryRoute
+  '/admin/cms': typeof AdminCmsRoute
   '/admin/login': typeof AdminLoginRoute
   '/admin/messages': typeof AdminMessagesRoute
   '/admin/pages': typeof AdminPagesRoute
@@ -165,6 +173,7 @@ export interface FileRoutesById {
   '/_site/donate-details': typeof SiteDonateDetailsRoute
   '/_site/gallery': typeof SiteGalleryRoute
   '/admin/gallery': typeof AdminGalleryRoute
+  '/admin/cms': typeof AdminCmsRoute
   '/admin/login': typeof AdminLoginRoute
   '/admin/messages': typeof AdminMessagesRoute
   '/admin/pages': typeof AdminPagesRoute
@@ -187,6 +196,7 @@ export interface FileRouteTypes {
     | '/donate-details'
     | '/gallery'
     | '/admin/gallery'
+    | '/admin/cms'
     | '/admin/login'
     | '/admin/messages'
     | '/admin/pages'
@@ -204,6 +214,7 @@ export interface FileRouteTypes {
     | '/donate-details'
     | '/gallery'
     | '/admin/gallery'
+    | '/admin/cms'
     | '/admin/login'
     | '/admin/messages'
     | '/admin/pages'
@@ -224,6 +235,7 @@ export interface FileRouteTypes {
     | '/_site/donate-details'
     | '/_site/gallery'
     | '/admin/gallery'
+    | '/admin/cms'
     | '/admin/login'
     | '/admin/messages'
     | '/admin/pages'
@@ -313,6 +325,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminGalleryRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/cms': {
+      id: '/admin/cms'
+      path: '/cms'
+      fullPath: '/admin/cms'
+      preLoaderRoute: typeof AdminCmsRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/_site/gallery': {
       id: '/_site/gallery'
       path: '/gallery'
@@ -400,6 +419,7 @@ const SiteRouteWithChildren = SiteRoute._addFileChildren(SiteRouteChildren)
 
 interface AdminRouteChildren {
   AdminGalleryRoute: typeof AdminGalleryRoute
+  AdminCmsRoute: typeof AdminCmsRoute
   AdminLoginRoute: typeof AdminLoginRoute
   AdminMessagesRoute: typeof AdminMessagesRoute
   AdminPagesRoute: typeof AdminPagesRoute
@@ -410,6 +430,7 @@ interface AdminRouteChildren {
 
 const AdminRouteChildren: AdminRouteChildren = {
   AdminGalleryRoute: AdminGalleryRoute,
+  AdminCmsRoute: AdminCmsRoute,
   AdminLoginRoute: AdminLoginRoute,
   AdminMessagesRoute: AdminMessagesRoute,
   AdminPagesRoute: AdminPagesRoute,
