@@ -132,8 +132,8 @@ export interface FileRoutesByFullPath {
   '/donate': typeof SiteDonateRoute
   '/donate-details': typeof SiteDonateDetailsRoute
   '/gallery': typeof SiteGalleryRoute
-  '/admin/gallery': typeof AdminGalleryRoute
   '/admin/cms': typeof AdminCmsRoute
+  '/admin/gallery': typeof AdminGalleryRoute
   '/admin/login': typeof AdminLoginRoute
   '/admin/messages': typeof AdminMessagesRoute
   '/admin/pages': typeof AdminPagesRoute
@@ -150,8 +150,8 @@ export interface FileRoutesByTo {
   '/donate': typeof SiteDonateRoute
   '/donate-details': typeof SiteDonateDetailsRoute
   '/gallery': typeof SiteGalleryRoute
-  '/admin/gallery': typeof AdminGalleryRoute
   '/admin/cms': typeof AdminCmsRoute
+  '/admin/gallery': typeof AdminGalleryRoute
   '/admin/login': typeof AdminLoginRoute
   '/admin/messages': typeof AdminMessagesRoute
   '/admin/pages': typeof AdminPagesRoute
@@ -172,8 +172,8 @@ export interface FileRoutesById {
   '/_site/donate': typeof SiteDonateRoute
   '/_site/donate-details': typeof SiteDonateDetailsRoute
   '/_site/gallery': typeof SiteGalleryRoute
-  '/admin/gallery': typeof AdminGalleryRoute
   '/admin/cms': typeof AdminCmsRoute
+  '/admin/gallery': typeof AdminGalleryRoute
   '/admin/login': typeof AdminLoginRoute
   '/admin/messages': typeof AdminMessagesRoute
   '/admin/pages': typeof AdminPagesRoute
@@ -195,8 +195,8 @@ export interface FileRouteTypes {
     | '/donate'
     | '/donate-details'
     | '/gallery'
-    | '/admin/gallery'
     | '/admin/cms'
+    | '/admin/gallery'
     | '/admin/login'
     | '/admin/messages'
     | '/admin/pages'
@@ -213,8 +213,8 @@ export interface FileRouteTypes {
     | '/donate'
     | '/donate-details'
     | '/gallery'
-    | '/admin/gallery'
     | '/admin/cms'
+    | '/admin/gallery'
     | '/admin/login'
     | '/admin/messages'
     | '/admin/pages'
@@ -234,8 +234,8 @@ export interface FileRouteTypes {
     | '/_site/donate'
     | '/_site/donate-details'
     | '/_site/gallery'
-    | '/admin/gallery'
     | '/admin/cms'
+    | '/admin/gallery'
     | '/admin/login'
     | '/admin/messages'
     | '/admin/pages'
@@ -418,8 +418,8 @@ const SiteRouteChildren: SiteRouteChildren = {
 const SiteRouteWithChildren = SiteRoute._addFileChildren(SiteRouteChildren)
 
 interface AdminRouteChildren {
-  AdminGalleryRoute: typeof AdminGalleryRoute
   AdminCmsRoute: typeof AdminCmsRoute
+  AdminGalleryRoute: typeof AdminGalleryRoute
   AdminLoginRoute: typeof AdminLoginRoute
   AdminMessagesRoute: typeof AdminMessagesRoute
   AdminPagesRoute: typeof AdminPagesRoute
@@ -429,8 +429,8 @@ interface AdminRouteChildren {
 }
 
 const AdminRouteChildren: AdminRouteChildren = {
-  AdminGalleryRoute: AdminGalleryRoute,
   AdminCmsRoute: AdminCmsRoute,
+  AdminGalleryRoute: AdminGalleryRoute,
   AdminLoginRoute: AdminLoginRoute,
   AdminMessagesRoute: AdminMessagesRoute,
   AdminPagesRoute: AdminPagesRoute,

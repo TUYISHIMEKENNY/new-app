@@ -5,7 +5,6 @@ import school from "@/assets/event 4.jpeg";
 import volunteer from "@/assets/event 5.jpeg";
 import research from "@/assets/event 6.jpeg";
 import landmark from "@/assets/event 7.jpeg";
-import community from "@/assets/community.jpg";
 import event1 from "@/assets/event 1.jpeg";
 import event2 from "@/assets/events 2.jpeg";
 import event3 from "@/assets/event 3.jpeg";
@@ -18,6 +17,11 @@ import speech1 from "@/assets/speech 1.jpeg";
 import speech2 from "@/assets/speech 2.jpeg";
 import speech3 from "@/assets/speech 3.jpeg";
 import sportEvent from "@/assets/sport-event.jpeg";
+import galleryBkWalk from "@/assets/gallery-bk-walk.jpg";
+import gallerySchoolOutreach1 from "@/assets/gallery-school-outreach-1.jpg";
+import gallerySchoolOutreach2 from "@/assets/gallery-school-outreach-2.jpg";
+import galleryConferencePanel from "@/assets/gallery-conference-panel.jpg";
+import galleryConferenceMeeting from "@/assets/gallery-conference-meeting.jpg";
 
 export type Post = {
   slug: string;
@@ -85,7 +89,7 @@ export const posts: Post[] = [
     date: "February 12, 2025",
     readTime: "7 min read",
     category: "Society",
-    cover: community,
+    cover: volunteer,
     body: [
       "The numbers are stark. In a 2023 survey of working adults with controlled epilepsy, sixty-eight percent said they had never disclosed their diagnosis at work. Of those who had, nearly a third reported a measurable change in how they were treated afterward.",
       "The math, for many, is simple. The risk of disclosure is concrete. The benefit is theoretical.",
@@ -94,60 +98,29 @@ export const posts: Post[] = [
 ];
 
 export const events = [
-  { src: walk, title: "Annual Awareness Walk", caption: "Kigali · March 2025", span: "tall" },
-  { src: gala, title: "Spring Benefit Gala", caption: "Convention Centre · 2024", span: "wide" },
-  {
-    src: sportEvent,
-    title: "Advocacy through Sport",
-    caption: "Amaze Sports Field · 2024",
-    span: "default",
-  },
-  {
-    src: speech1,
-    title: "Community Keynote",
-    caption: "Awareness Session · 2024",
-    span: "default",
-  },
-  { src: event1, title: "Youth Engagement", caption: "Local School Outreach", span: "default" },
-  {
-    src: school,
-    title: "Schools Outreach Program",
-    caption: "Regional Program · 2024",
-    span: "default",
-  },
-  { src: event3, title: "Medical Workshop", caption: "Clinical Training Session", span: "wide" },
-  { src: volunteer, title: "Care Kits for Families", caption: "Kigali · ongoing", span: "default" },
-  {
-    src: speech2,
-    title: "Expert Panel Discussion",
-    caption: "Public Forum · 2024",
-    span: "default",
-  },
-  { src: event4, title: "Family Day Outing", caption: "Recreational Park", span: "tall" },
-  {
-    src: research,
-    title: "Research Symposium",
-    caption: "National University · 2024",
-    span: "wide",
-  },
-  { src: event5, title: "Awareness Campaign", caption: "City Center Gathering", span: "default" },
-  { src: speech3, title: "Inspirational Stories", caption: "Community Hall", span: "default" },
-  { src: event6, title: "Support Group Meeting", caption: "Weekly Counseling", span: "default" },
-  {
-    src: landmark,
-    title: "Light It Up Purple",
-    caption: "Kigali Monument · Purple Day",
-    span: "tall",
-  },
-  { src: event7, title: "Fundraising Initiative", caption: "Charity Bazaar", span: "wide" },
-  { src: event8, title: "Volunteer Training", caption: "Main Office", span: "default" },
-  { src: event2, title: "Evening Reception", caption: "Appreciation Dinner", span: "default" },
-  {
-    src: community,
-    title: "Sunday Support Circle",
-    caption: "Community Center · weekly",
-    span: "default",
-  },
+  { src: walk, title: "", caption: "", span: "tall" },
+  { src: gala, title: "", caption: "", span: "wide" },
+  { src: sportEvent, title: "", caption: "", span: "default" },
+  { src: speech1, title: "", caption: "", span: "default" },
+  { src: event1, title: "", caption: "", span: "default" },
+  { src: school, title: "", caption: "", span: "default" },
+  { src: event3, title: "", caption: "", span: "wide" },
+  { src: volunteer, title: "", caption: "", span: "default" },
+  { src: speech2, title: "", caption: "", span: "default" },
+  { src: event4, title: "", caption: "", span: "tall" },
+  { src: research, title: "", caption: "", span: "wide" },
+  { src: event5, title: "", caption: "", span: "default" },
+  { src: speech3, title: "", caption: "", span: "default" },
+  { src: event6, title: "", caption: "", span: "default" },
+  { src: landmark, title: "", caption: "", span: "tall" },
+  { src: event7, title: "", caption: "", span: "wide" },
+  { src: event8, title: "", caption: "", span: "default" },
+  { src: event2, title: "", caption: "", span: "default" },
+  { src: galleryBkWalk, title: "", caption: "", span: "wide" },
+  { src: gallerySchoolOutreach1, title: "", caption: "", span: "default" },
+  { src: gallerySchoolOutreach2, title: "", caption: "", span: "tall" },
+  { src: galleryConferencePanel, title: "", caption: "", span: "wide" },
+  { src: galleryConferenceMeeting, title: "", caption: "", span: "default" },
 ] as const;
 
 export const facts = [

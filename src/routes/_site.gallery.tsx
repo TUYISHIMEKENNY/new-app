@@ -77,16 +77,10 @@ function Gallery() {
               >
                 <img
                   src={e.src}
-                  alt={e.title}
+                  alt="Gallery photograph"
                   className={`h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.04] ${aspectClass(span)}`}
                   loading="lazy"
                 />
-                <figcaption className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-foreground/85 to-transparent p-5 text-background">
-                  <p className="font-display text-lg leading-tight">{e.title}</p>
-                  <p className="mt-1 text-xs uppercase tracking-[0.18em] text-background/80">
-                    {e.caption}
-                  </p>
-                </figcaption>
               </figure>
             );
           })}
