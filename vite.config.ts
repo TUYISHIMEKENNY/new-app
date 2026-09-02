@@ -24,7 +24,7 @@ export default defineConfig({
           "vendor-react": ["react", "react-dom"],
           "vendor-router": ["@tanstack/react-router"],
           "vendor-ui": ["@radix-ui/react-dialog", "@radix-ui/react-dropdown-menu", "@radix-ui/react-popover"],
-          "vendor-editor": ["@tiptap/react", "@tiptap/starter-kit", "@tiptap/pm"],
+          "vendor-editor": ["@tiptap/react", "@tiptap/starter-kit"],
           "vendor-icons": ["lucide-react"],
         },
         // Use content hashes for long-term caching
