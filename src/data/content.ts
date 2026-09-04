@@ -22,6 +22,17 @@ import gallerySchoolOutreach1 from "@/assets/gallery-school-outreach-1.jpg";
 import gallerySchoolOutreach2 from "@/assets/gallery-school-outreach-2.jpg";
 import galleryConferencePanel from "@/assets/gallery-conference-panel.jpg";
 import galleryConferenceMeeting from "@/assets/gallery-conference-meeting.jpg";
+import epilepsyCampaignStudents1 from "@/assets/epilepsy-campaign-students-1.jpg";
+import epilepsyCampaignSpeaker from "@/assets/epilepsy-campaign-speaker.jpg";
+import epilepsyCampaignStudents2 from "@/assets/epilepsy-campaign-students-2.jpg";
+import epilepsyCampaignGroup from "@/assets/epilepsy-campaign-group.jpg";
+import epilepsyCampaignQa from "@/assets/epilepsy-campaign-qa.jpg";
+import epilepsyCampaignTeamSupplies from "@/assets/epilepsy-campaign-team-supplies.jpg";
+import epilepsyCampaignFirstAidDemo from "@/assets/epilepsy-campaign-first-aid-demo.jpg";
+import epilepsyCampaignWalkTeam from "@/assets/epilepsy-campaign-walk-team.jpg";
+import epilepsyCampaignQaSession2 from "@/assets/epilepsy-campaign-qa-session-2.jpg";
+import epilepsyCampaignSchoolBanner from "@/assets/epilepsy-campaign-school-banner.jpg";
+import epilepsyCampaignRunMedals from "@/assets/epilepsy-campaign-run-medals.jpg";
 
 export type Post = {
   slug: string;
@@ -121,6 +132,17 @@ export const events = [
   { src: gallerySchoolOutreach2, title: "", caption: "", span: "tall" },
   { src: galleryConferencePanel, title: "", caption: "", span: "wide" },
   { src: galleryConferenceMeeting, title: "", caption: "", span: "default" },
+  { src: epilepsyCampaignStudents1, title: "Epilepsy Awareness Campaign", caption: "Students attending the epilepsy awareness session", span: "wide" },
+  { src: epilepsyCampaignSpeaker, title: "Campaign Presentation", caption: "Speaker presenting at the epilepsy awareness campaign", span: "tall" },
+  { src: epilepsyCampaignStudents2, title: "School Outreach", caption: "Students gathering at the epilepsy awareness event", span: "default" },
+  { src: epilepsyCampaignGroup, title: "Group Photo", caption: "Participants and facilitators at the epilepsy awareness campaign", span: "wide" },
+  { src: epilepsyCampaignQa, title: "Q&A Session", caption: "Interactive Q&A session during the epilepsy awareness campaign", span: "default" },
+  { src: epilepsyCampaignTeamSupplies, title: "Medical Supplies", caption: "Campaign team with medical supplies and equipment", span: "wide" },
+  { src: epilepsyCampaignFirstAidDemo, title: "First Aid Demo", caption: "First aid demonstration during the epilepsy awareness campaign", span: "tall" },
+  { src: epilepsyCampaignWalkTeam, title: "Epilepsy Strides Walk", caption: "Team members at the Epilepsy Strides Walk event", span: "default" },
+  { src: epilepsyCampaignQaSession2, title: "Interactive Session", caption: "Students actively participating in an epilepsy awareness Q&A", span: "wide" },
+  { src: epilepsyCampaignSchoolBanner, title: "School Outreach", caption: "Large school assembly with epilepsy seizure first aid banner", span: "wide" },
+  { src: epilepsyCampaignRunMedals, title: "Epilepsy Strides Run", caption: "Team members showing medals after the Epilepsy Strides Walk 2024", span: "tall" },
 ] as const;
 
 export const facts = [
